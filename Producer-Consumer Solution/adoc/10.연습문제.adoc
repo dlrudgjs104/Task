@@ -2,7 +2,7 @@
 
 Thread를 이용해 생산자와 소비자가 거래하는 생산자-소비자 솔루션을 구성해 본다.
 
-image::adoc/thread_mart.png[align=center]
+adoc::adoc/thread_mart.png[align=center]
 
 {empty} +
 
