@@ -15,12 +15,12 @@ public class TestWorld {
     static final int BOUNDED_BOX_COUNT = 0;
     static final int BRICK_WIDTH = 50;
     static final int BRICK_HEIGHT = 20;
-    static final int MIN_DELTA = 5;
-    static final int MAX_DELTA = 7;
+    static final int MIN_DELTA = 3;
+    static final int MAX_DELTA = 5;
     static final int MAX_MOVE_COUNT = 0;
     static final int DT = 10;
     static final int WALL_THICKNESS = 10;
-    static final int BOUNDED_BALL_RADIUS = 50;
+    static final int BOUNDED_BALL_RADIUS = 5;
     static final Color[] COLOR_TABLE = {
             Color.BLACK,
             Color.RED,
@@ -71,7 +71,7 @@ public class TestWorld {
                 int dy = MIN_DELTA - random.nextInt(MAX_DELTA - MIN_DELTA + 1);
 
                 ball.setDX(dx);
-                ball.setDY(dy);
+                ball.setDY(-dy);
 
                 world.add(ball);
                 BOUNDED_BALL_COUNT--;
