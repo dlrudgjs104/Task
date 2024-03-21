@@ -8,7 +8,6 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class Server {
-    private int port;
     private String line = "";
     private ServerSocket serverSocket;
     private Socket socket;
@@ -17,8 +16,6 @@ public class Server {
     private Scanner scanner = new Scanner(System.in);
 
     Server(int port) {
-        this.port = port;
-
         try {
             serverSocket = new ServerSocket(port);
             socket = serverSocket.accept();
@@ -33,12 +30,11 @@ public class Server {
         } catch (IOException e) {
             System.err.println("에러: " + e.getMessage());
         }
-
     }
 
     public void send() {
         try {
-            while (line != null){
+            while (line != null) {
                 line = scanner.nextLine();
                 socket.getOutputStream().write((line + "\n").getBytes());
             }
@@ -52,22 +48,18 @@ public class Server {
     }
 
     public void receive() {
-        while (!Thread.currentThread().isInterrupted()) {
+        try {
+            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-            try {
-                BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-                while ((line = input.readLine()) != null) {
-                    System.out.println("받은 내용: " + line);
-                }
-
-                socket.close();
-                System.exit(0);
-
-            } catch (Exception e) {
-                System.err.println("에러: " + e.getMessage());
+            while ((line = input.readLine()) != null) {
+                System.out.println("받은 내용: " + line);
             }
 
+            socket.close();
+            System.exit(0);
+
+        } catch (Exception e) {
+            System.err.println("에러: " + e.getMessage());
         }
     }
 }

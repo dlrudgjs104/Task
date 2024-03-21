@@ -7,13 +7,10 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 public class ApacheCommonsCLi {
-    private String[] args;
     private int portValue;
     private String ipValue;
 
     public ApacheCommonsCLi(String[] args) {
-        this.args = args;
-
         Options options = new Options();
 
         Option serverOption = Option.builder("l")
@@ -49,7 +46,6 @@ public class ApacheCommonsCLi {
             if(cmd.hasOption((ip.getOpt()))){
                 ipValue = cmd.getOptionValue(ip.getOpt());
             }
-
             
             if (cmd.hasOption(serverOption.getOpt())) {   // 서버모드
                 Server server = new Server(portValue);
