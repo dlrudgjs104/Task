@@ -127,7 +127,7 @@ public class Server {
             } else if (line.substring(0, 8).equals("send_off")) {
                 sendOff(line.substring(9));
             } else if (line.substring(0, 8).equals("log show")) {
-                logShow();
+                logShow(line.substring(9));
             }
         }
 
@@ -221,8 +221,32 @@ public class Server {
 
     }
 
-    public void logShow() {
+    public void logShow(String line) {
+        String[] lines = line.split(" ");
+        JSONArray logArray = (JSONArray) logData.get("log");
 
+        for(int i = 0; i < lines.length; i++){
+            lines[i] = lines[i].trim();
+        }
+
+        System.out.println("[Log List]");
+
+        if (lines.length == 0){
+            for (int i = 0; i < 10; i++) {
+                System.out.println(logArray.get(i).toString());
+            }
+        }
+        else if (lines.length == 1){
+            for (int i = 0; i < Integer.parseInt(lines[0]); i++) {
+                System.out.println(logArray.get(i).toString());
+            }     
+        }
+        else if (lines.length == 2){
+            for (int i = Integer.parseInt(lines[0]); i < Integer.parseInt(lines[0]) + Integer.parseInt(lines[1]); i++) {
+                System.out.println(logArray.get(i).toString());
+            }
+
+        }
     }
 
     public void receive() {

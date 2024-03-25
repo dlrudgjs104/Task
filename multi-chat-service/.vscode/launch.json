@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ServerTest",
+            "request": "launch",
+            "mainClass": "com.nhnacademy.ServerTest",
+            "projectName": "recorder"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"

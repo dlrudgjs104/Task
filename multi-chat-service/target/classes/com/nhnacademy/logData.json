@@ -1,1 +1,52 @@
-{"log":[{"time":"2024-03-25T03:43:16.022820","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"},{"time":"2024-03-25T03:43:29.464332","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"},{"time":"2024-03-25T03:43:51.105152","content":"{\"target_id\":\"2\",\"id\":1,\"type\":\"message\",\"message\":\"hi\",\"client_id\":\"1\"}"},{"time":"2024-03-25T03:44:32.156372","content":"{\"target_id\":\"1\",\"id\":1,\"type\":\"message\",\"message\":\"hi\",\"client_id\":\"2\"}"},{"time":"2024-03-25T03:54:54.317","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"},{"time":"2024-03-25T03:55:12.978662","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"},{"time":"2024-03-25T03:57:19.596327","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"},{"time":"2024-03-25T03:57:23.804761","content":"{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"}]}
+{
+    "log": [
+        {
+            "time": "2024-03-25T03:43:16.022820",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T03:43:29.464332",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"
+        },
+        {
+            "time": "2024-03-25T03:43:51.105152",
+            "content": "{\"target_id\":\"2\",\"id\":1,\"type\":\"message\",\"message\":\"hi\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T03:44:32.156372",
+            "content": "{\"target_id\":\"1\",\"id\":1,\"type\":\"message\",\"message\":\"hi\",\"client_id\":\"2\"}"
+        },
+        {
+            "time": "2024-03-25T03:54:54.317",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T03:55:12.978662",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"
+        },
+        {
+            "time": "2024-03-25T03:57:19.596327",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T03:57:23.804761",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"2\"}"
+        },
+        {
+            "time": "2024-03-25T08:56:13.853995",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T08:58:11.491744",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T09:01:08.718108",
+            "content": "{\"target_id\":\"server\",\"id\":1,\"type\":\"connect\",\"message\":\"접속 요청\",\"client_id\":\"1\"}"
+        },
+        {
+            "time": "2024-03-25T09:02:02.438726",
+            "content": "{\"target_id\":\"0\",\"id\":1,\"type\":\"message\",\"message\":\"asdf\",\"client_id\":\"1\"}"
+        }
+    ]
+}
