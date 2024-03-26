@@ -23,29 +23,23 @@ public class ApacheCommonsCLi {
                 .desc("Client Mode")
                 .build();
 
-        Option portOption = Option.builder("p")
-                .longOpt("port")
-                .hasArg()
-                .desc("Port")
-                .build();
-
         options.addOption(clientOption);
-        options.addOption(portOption);
+        options.addOption("p","port",true, "Option p");
 
         try {
             CommandLineParser parser = new DefaultParser();
             CommandLine cmd = parser.parse(options, args);
 
-            if (cmd.hasOption(portOption.getOpt())) {
+            if (cmd.hasOption("p")) {
                 portValue = 1234;
-                portValue = Integer.parseInt(cmd.getOptionValue(portOption.getOpt()));
+                portValue = Integer.parseInt(cmd.getOptionValue("p"));
             }
 
-            if (cmd.hasOption(clientOption.getOpt()) && cmd.hasOption(portOption.getOpt())) { // 클라이언트 모드
+            if (cmd.hasOption(clientOption.getOpt()) && cmd.hasOption("p")) { // 클라이언트 모드
                 Client client = new Client("localhost", portValue);
                 client.operate();
                 
-            } else if (cmd.hasOption(portOption.getOpt())){ // 서버 모드
+            } else if (cmd.hasOption("p")){ // 서버 모드
                 Server server = new Server(portValue);
                 server.operate();
             }

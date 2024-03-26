@@ -1,0 +1,4 @@
+2024-03-26T09:06:42.407+0900 TRACE Message trace: {"target_id":"0","id":1,"type":"client_list","message":"client_list","client_id":"1"}
+2024-03-26T09:06:52.852+0900 TRACE Message trace: {"target_id":"1","id":2,"type":"message","message":"asdfwae","client_id":"1"}
+2024-03-26T09:07:50.918+0900 TRACE Message trace: {"target_id":"1","id":3,"type":"message","message":"e wqrwqeer","client_id":"1"}
+2024-03-26T09:08:08.491+0900 TRACE Message trace: {"target_id":"1","id":4,"type":"message","message":"asdfawefe","client_id":"1"}
