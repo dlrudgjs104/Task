@@ -6,23 +6,28 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class Shttpd {
-    private int port;
-    private Socket socket;
-    public static final String FILED_CONTENT_LENGTH = "content-length";
-    public static final String CRLF = "\r\n";
-    public BufferedReader reader;
-    public PrintWriter writer;
-    private List<ServiceHandler> services = new ArrayList<>();
+public class Shttpd extends Thread {
+    int port;
+    Socket socket;
+    static final String FILED_CONTENT_LENGTH = "content-length";
+    static final String CRLF = "\r\n";
+    BufferedReader reader;
+    PrintWriter writer;
+    List<ServiceHandler> services = new ArrayList<>();
+    Logger logger;
 
     public Shttpd(int port) {
         this.port = port;
+        logger = LogManager.getLogger(this.getClass().getSimpleName());
     }
 
-    public void shttpdRun() {
+    @Override
+    public void run(){
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("서버 시작");
+            logger.trace("서버 시작 : {}", port);
 
             while (true) {
                 socket = serverSocket.accept();
@@ -36,7 +41,6 @@ public class Shttpd {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 
 }

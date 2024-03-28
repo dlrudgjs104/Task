@@ -26,8 +26,15 @@ public class ApachCommandCli {
 
             if (line.hasOption("p")){
                 port = Integer.parseInt(line.getOptionValue("p"));
+
                 Shttpd shttpd = new Shttpd(port);
-                shttpd.shttpdRun();
+                shttpd.start();
+
+                try {
+                    shttpd.join();
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
             }
 
         } catch (ParseException e) {
