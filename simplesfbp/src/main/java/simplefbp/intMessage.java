@@ -1,8 +1,8 @@
 package simplefbp;
 
-public class intMessage extends Message{
+public class IntMessage extends Message{
 
-    intMessage(int data) {
+    IntMessage(int data) {
         super();
         this.data = data;
     }

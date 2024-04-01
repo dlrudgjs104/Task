@@ -18,7 +18,7 @@ public class OutputNode extends Node {
         this.inputPortCount = inputPortCount;
         pipe = new Pipe(QUEUESIZE);
     }
-
+ 
     OutputNode(String name, String ip, int port) {
         super(name);
         this.ip = ip;
@@ -52,5 +52,7 @@ public class OutputNode extends Node {
         return pipe;
     }
 
+    public void addMessage(Message message){
 
+    }
 }

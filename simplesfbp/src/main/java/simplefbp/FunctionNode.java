@@ -1,48 +1,67 @@
 package simplefbp;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class FunctionNode extends Node implements Producer, Consumer {
-    List<Pipe> inputPipes;
-    List<Pipe> outputPipes;
+    int result;
 
     public FunctionNode(String name) {
         super(name);
-        inputPipes = new ArrayList<>();
-        outputPipes = new ArrayList<>();
+
     }
 
-    // 입력 파이프 연결
+
+
+
+    public int add(int a, int b){
+        return a + b;
+    }
+
+    public int substract(int a, int b){
+        return a - b;
+    }
+
+    public int multiply(int a, int b){
+        return a * b;
+    }
+
+    public int division(int a, int b){
+        return a / b;
+    }
+
+    public void r1(int a, int b){
+        result = add(a, b);
+    }
+
+    public void r2(int a, int b, int c){
+        result = division(add(a,b), c);
+    }
+
+    public void r3(int a, int b, int c, int d){
+        result = multiply(add(a,b), division(c, d));
+    }
+
+
+
+
     @Override
-    public void inputPipeConnect(Pipe inputPipe) {
-        inputPipes.add(inputPipe);
+    public void outputPipeConnect(Message message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'outputPipeConnect'");
     }
 
-    // 출력 파이프 연결
+
+
+
     @Override
-    public void outputPipeConnect(Pipe outputPipe) {
-        outputPipes.add(outputPipe);
+    public Message inputPipeConnect() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'inputPipeConnect'");
     }
 
-    // 메시지 처리
-    public void processMessages() {
-        // 각 입력 파이프에서 메시지를 읽어와 가공 후 출력 파이프로 전달
-        for (Pipe inputPipe : inputPipes) {
-            Message message = inputPipe.pollMessage();
-            // 메시지 가공 로직 수행
-            Message processedMessage = processMessage(message);
-            // 출력 파이프로 메시지 전달
-            for (Pipe outputPipe : outputPipes) {
-                outputPipe.addMessage(processedMessage);
-            }
-        }
-    }
 
-    // 메시지 가공 로직
-    public Message processMessage(Message message) {
-        // 메시지를 가공하는 로직을 구현
-        // 여기서는 간단히 입력 메시지를 그대로 반환하는 예시
-        return message;
-    }
+
+
+
+
+
+
 }

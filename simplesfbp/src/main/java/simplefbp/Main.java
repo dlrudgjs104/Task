@@ -48,6 +48,15 @@ class FunctionNodeTest{
         OutputNode outputNode = new OutputNode("outputNode", 2);
         TerminalOutNode r1TerminalOutNode = new TerminalOutNode("r1TerminalOutNode");
 
+        // pipe가 연결을 통해 메세지를 송수신 해주는 역할이면 consoleInNode에서 메세지를 보내고 그 데이터를 outputNode에서 pipe로 저장하고 데이터 처리
+        // Producer는 메시지를 생산하여 파이프에 넣기 위한 기능들을 정의하고 있다.
+        v1InputNode.start();
+        v2InputNode.start();
+
+        outputNode.getPipe().addMessage(v1InputNode.message);
+        outputNode.getPipe().addMessage(v2InputNode.message);
+
+        FunctionNode functionNode = new FunctionNode("functnion Node");
 
         flow.addNode(v1InputNode);
         flow.addNode(v2InputNode);

@@ -50,13 +50,6 @@ public class Flow {
         }
     }
 
-    // 파이프를 생성하고 노드들을 연결하는 메서드
-    public void connectNodes(ConsoleInNode sourceNode, TerminalOutNode targetNode, Pipe pipe) {
-        sourceNode.inputPipeConnect(pipe);
-        targetNode.outputPipeConnect(pipe);
-        pipes.add(pipe);
-    }
-
     // Flow를 시작하는 메서드
     public void start() {
         for (ConsoleInNode node : producerNodes) {

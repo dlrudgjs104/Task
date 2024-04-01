@@ -1,7 +1,7 @@
 package simplefbp;
 
 public class TerminalOutNode extends ActiveNode implements Consumer {
-    Pipe outputPipe;
+    Message message;
 
     TerminalOutNode(String name) {
         super(name);
@@ -9,8 +9,8 @@ public class TerminalOutNode extends ActiveNode implements Consumer {
     }
 
     @Override
-    public void outputPipeConnect(Pipe outputPipe) {
-        this.outputPipe = outputPipe;
+    public void outputPipeConnect(Message message) {
+        this.message = message;
     }
 
     @Override
@@ -22,7 +22,6 @@ public class TerminalOutNode extends ActiveNode implements Consumer {
     @Override
     public void perform() {
         while (true) {
-            Message message = outputPipe.pollMessage();
 
             if (message != null) {
                 System.out.println(message.getData());
