@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Flow {
     List<Node> nodes;
-    List<Node> producerNodes;
-    List<Node> consumerNodes;
+    List<ConsoleInNode> producerNodes;
+    List<TerminalOutNode> consumerNodes;
     List<Pipe> pipes;
 
     Flow() {
@@ -18,9 +18,9 @@ public class Flow {
 
     public void addNode(Node node) {
         if (node instanceof ConsoleInNode) {
-            producerNodes.add(node);
+            producerNodes.add((ConsoleInNode) node);
         } else if (node instanceof TerminalOutNode) {
-            consumerNodes.add(node);
+            consumerNodes.add((TerminalOutNode) node);
         } else {
             nodes.add(node);
         }
@@ -51,15 +51,20 @@ public class Flow {
     }
 
     // 파이프를 생성하고 노드들을 연결하는 메서드
-    public void connectNodes(Node sourceNode, Node targetNode, Pipe pipe) {
-        sourceNode.outputPipeConnect(pipe);
-        targetNode.inputPipeConnect(pipe);
+    public void connectNodes(ConsoleInNode sourceNode, TerminalOutNode targetNode, Pipe pipe) {
+        sourceNode.inputPipeConnect(pipe);
+        targetNode.outputPipeConnect(pipe);
         pipes.add(pipe);
     }
 
     // Flow를 시작하는 메서드
     public void start() {
-        for (Node node : nodes) {
+        for (ConsoleInNode node : producerNodes) {
+            // 각 노드를 시작
+            node.start();
+        }
+
+        for (TerminalOutNode node : consumerNodes) {
             // 각 노드를 시작
             node.start();
         }
