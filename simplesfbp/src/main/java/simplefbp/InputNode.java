@@ -10,7 +10,7 @@ public class InputNode extends Node {
     InputNode(String name, Socket socket) {
         super(name);
         this.socket = socket;
-
+        
     }
 
     public void operate() {

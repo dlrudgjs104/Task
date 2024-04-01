@@ -2,6 +2,7 @@ package simplefbp;
 
 public class TerminalOutNode extends ActiveNode implements Consumer {
     Message message;
+    Thread thread;
 
     TerminalOutNode(String name) {
         super(name);
@@ -15,20 +16,21 @@ public class TerminalOutNode extends ActiveNode implements Consumer {
 
     @Override
     public void start() {
-        Thread thread = new Thread(this::perform);
+        thread = new Thread(this::perform);
         thread.start();
     }
 
     @Override
-    public void perform() {
-        while (true) {
-
-            if (message != null) {
-                System.out.println(message.getData());
+    public synchronized void perform() {
+        while (pipe.queueCheck()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                System.err.println(e.getMessage());
             }
         }
 
+        logger.trace("Terminal Out: {}", (int) pipe.pollMessage().getData());
+        thread.interrupt();
     }
-    
-
 }

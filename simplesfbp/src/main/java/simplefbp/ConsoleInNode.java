@@ -5,14 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ConsoleInNode extends ActiveNode implements Producer {
-    Logger logger;
     Scanner scanner = new Scanner(System.in);
     Message message;
+    Thread thread;
 
     ConsoleInNode(String name) {
         super(name);
-
-        logger = LogManager.getLogger(this.getClass().getSimpleName());
+        start();
     }
 
     @Override
@@ -22,12 +21,13 @@ public class ConsoleInNode extends ActiveNode implements Producer {
 
     @Override
     public void start() {
-        Thread thread = new Thread(this::perform);
+        thread = new Thread(this::perform);
         thread.start();
     }
 
     @Override
     public void perform() {
+        logger.trace("{} 시작", name);
         System.out.printf("입력: ");
 
         if (scanner.hasNextInt()) {
@@ -43,6 +43,7 @@ public class ConsoleInNode extends ActiveNode implements Producer {
         } else {
             logger.trace("올바른 입력값이 아닙니다.");
         }
+        thread.interrupt();
     }
 
 }

@@ -6,24 +6,19 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class OutputNode extends Node {
-    int inputPortCount;
-
     String ip;
     int port;
-    Pipe pipe;
+
     static final int QUEUESIZE = 10;
 
-    OutputNode(String name, int inputPortCount){
+    OutputNode(String name){
         super(name);
-        this.inputPortCount = inputPortCount;
-        pipe = new Pipe(QUEUESIZE);
     }
  
     OutputNode(String name, String ip, int port) {
         super(name);
         this.ip = ip;
         this.port = port;
-        pipe = new Pipe(QUEUESIZE);
     }
 
     public void operate() {
@@ -52,7 +47,5 @@ public class OutputNode extends Node {
         return pipe;
     }
 
-    public void addMessage(Message message){
 
-    }
 }

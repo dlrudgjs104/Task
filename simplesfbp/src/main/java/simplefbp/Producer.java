@@ -1,5 +1,6 @@
 package simplefbp;
 
 public interface Producer {
-    public Message inputPipeConnect();
+    public Pipe inputPipeConnect();
+    
 }

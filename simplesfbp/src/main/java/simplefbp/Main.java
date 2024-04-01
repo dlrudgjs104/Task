@@ -39,36 +39,28 @@ class Test{
 
 class FunctionNodeTest{
     public static void main(String[] args) {
-        // Flow 생성
-        Flow flow = new Flow();
 
-        // Node 생성
-        ConsoleInNode v1InputNode = new ConsoleInNode("v1InputNode");
-        ConsoleInNode v2InputNode = new ConsoleInNode("v2InputNode");
-        OutputNode outputNode = new OutputNode("outputNode", 2);
-        TerminalOutNode r1TerminalOutNode = new TerminalOutNode("r1TerminalOutNode");
+        ConsoleInNode inputNode;
+        TerminalOutNode terminalOutNode = new TerminalOutNode("r1TerminalOutNode");
+        FunctionNode functionNode = new FunctionNode("functnion Node", 3);
 
-        // pipe가 연결을 통해 메세지를 송수신 해주는 역할이면 consoleInNode에서 메세지를 보내고 그 데이터를 outputNode에서 pipe로 저장하고 데이터 처리
-        // Producer는 메시지를 생산하여 파이프에 넣기 위한 기능들을 정의하고 있다.
-        v1InputNode.start();
-        v2InputNode.start();
+        while ( functionNode.inputPortCount-- > 0){
+            inputNode = new ConsoleInNode("InputNode");
 
-        v1InputNode.inputPipeConnect();
+            // 메세지가 입력될 때까지 대기
+            while (inputNode.pipe.getQueueLength() == 0){      
+            }
 
-        FunctionNode functionNode = new FunctionNode("functnion Node");
-        functionNode.pipe.addMessage(v1InputNode.pipe.pollMessage());
-        functionNode.pipe.addMessage(v2InputNode.pipe.pollMessage());
+            // 메세지를 Function Node에 전달
+            functionNode.pipe.addMessage(inputNode.pipe.pollMessage());
+        }
 
-        flow.addNode(v1InputNode);
-        flow.addNode(v2InputNode);
-        flow.addNode(outputNode);
-        flow.addNode(r1TerminalOutNode);
+        // Function Node 작업 실행
+        functionNode.operate();
 
-        flow.addPipe(outputNode.getPipe());
+        terminalOutNode.pipe.addMessage(functionNode.pipe.pollMessage());
 
-
-        // Flow 시작
-        flow.start();
+        terminalOutNode.notifyOwn();
 
     }
 }

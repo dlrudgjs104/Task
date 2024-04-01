@@ -37,6 +37,7 @@ public class Pipe{
             System.out.println("메세지 용량 초과");
         }
         
+        
     }
 
     public synchronized Message pollMessage(){
@@ -46,6 +47,14 @@ public class Pipe{
         else{
             return messageQueue.poll();
         }   
+    }
+
+    public int getQueueLength(){
+        return messageQueue.size() + priorityQueue.size();
+    }
+
+    public boolean queueCheck(){
+        return messageQueue.isEmpty() && priorityQueue.isEmpty();
     }
  
 }
