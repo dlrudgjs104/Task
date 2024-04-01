@@ -5,6 +5,7 @@ import java.util.UUID;
 public abstract class Node {
     String id;
     String name;
+    Pipe pipe = new Pipe(10);
 
     Node(String name){
         this.id = UUID.randomUUID().toString();

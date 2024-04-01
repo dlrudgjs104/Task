@@ -36,10 +36,11 @@ public class TimerNode extends ActiveNode implements Producer {
     }
 
     @Override
-    public Message inputPipeConnect() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'inputPipeConnect'");
+    public Pipe inputPipeConnect() {
+        return pipe;
     }
+
+
 
 
 

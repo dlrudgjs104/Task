@@ -9,8 +9,8 @@ public class TerminalOutNode extends ActiveNode implements Consumer {
     }
 
     @Override
-    public void outputPipeConnect(Message message) {
-        this.message = message;
+    public void outputPipeConnect(Pipe outputPipe) {
+        pipe = outputPipe;
     }
 
     @Override

@@ -39,29 +39,16 @@ public class FunctionNode extends Node implements Producer, Consumer {
         result = multiply(add(a,b), division(c, d));
     }
 
-
-
-
     @Override
-    public void outputPipeConnect(Message message) {
+    public void outputPipeConnect(Pipe outputPipe) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'outputPipeConnect'");
     }
 
-
-
-
     @Override
-    public Message inputPipeConnect() {
+    public Pipe inputPipeConnect() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'inputPipeConnect'");
     }
-
-
-
-
-
-
-
 
 }

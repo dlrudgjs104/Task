@@ -53,10 +53,11 @@ class FunctionNodeTest{
         v1InputNode.start();
         v2InputNode.start();
 
-        outputNode.getPipe().addMessage(v1InputNode.message);
-        outputNode.getPipe().addMessage(v2InputNode.message);
+        v1InputNode.inputPipeConnect();
 
         FunctionNode functionNode = new FunctionNode("functnion Node");
+        functionNode.pipe.addMessage(v1InputNode.pipe.pollMessage());
+        functionNode.pipe.addMessage(v2InputNode.pipe.pollMessage());
 
         flow.addNode(v1InputNode);
         flow.addNode(v2InputNode);

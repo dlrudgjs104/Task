@@ -16,8 +16,8 @@ public class ConsoleInNode extends ActiveNode implements Producer {
     }
 
     @Override
-    public Message inputPipeConnect(Message inputMessage) {
-        return inputMessage;
+    public Pipe inputPipeConnect() {
+        return pipe;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class ConsoleInNode extends ActiveNode implements Producer {
             int num = scanner.nextInt();
             logger.trace("입력된 값은 정수 입니다.");
             message = new IntMessage(num);
-            inputPipeConnect(message);
+            pipe.addMessage(message);
         } else if (scanner.hasNext()) {
             String str = scanner.nextLine();
             logger.trace("입력된 값은 문자열 입니다.");
             message = new StringMessage(str);
-            inputPipeConnect(message);
+            pipe.addMessage(message);
         } else {
             logger.trace("올바른 입력값이 아닙니다.");
         }
