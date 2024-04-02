@@ -4,12 +4,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class ServerNode extends Node {
     int port;
-    Logger logger = LogManager.getLogger(this.getClass().getSimpleName());
 
     ServerNode(String name, int port) {
         super(name);
@@ -28,7 +24,11 @@ public class ServerNode extends Node {
                 InputNode inputNode = new InputNode("Input Node", socket);
                 inputNode.operate();
 
+                pipe.addMessage(inputNode.pipe.pollMessage());
+
+
                 OutputNode outputNode = new OutputNode("Output Node", "localhost", 1234);
+                outputNode.pipe.addMessage(pipe.pollMessage());
                 outputNode.operate();
 
             }
@@ -37,5 +37,5 @@ public class ServerNode extends Node {
             System.err.println(e.getMessage());
         }
 
-    }
+    } 
 }

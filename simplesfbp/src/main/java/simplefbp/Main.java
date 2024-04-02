@@ -17,47 +17,36 @@ public class Main {
 
 class Test{
     public static void main(String[] args) {
-        ClientNode clientNode = new ClientNode("ClientNode", "localhost", 1234);
-
-        ConsoleInNode consoleNode = new ConsoleInNode("Console Node");
-
-        TerminalOutNode terminalOutNode = new TerminalOutNode("Terminal Out Node");
-
-        OutputNode outputNode = new OutputNode("outputNode", "localhost", 1234);
-
-        Flow flow = new Flow();
-
-        Thread thread2 = new Thread(() ->{
-            clientNode.operate();
-            outputNode.operate();
-        });
+        ClientNode clientNode = new ClientNode("ClientNode");
+        clientNode.operate();
 
         
-        thread2.start();
+        
     }
 }
 
 class FunctionNodeTest{
     public static void main(String[] args) {
 
-        ConsoleInNode inputNode;
+        ConsoleInNode consoleInNode;
         TerminalOutNode terminalOutNode = new TerminalOutNode("r1TerminalOutNode");
         FunctionNode functionNode = new FunctionNode("functnion Node", 3);
 
-        while ( functionNode.inputPortCount-- > 0){
-            inputNode = new ConsoleInNode("InputNode");
+        while (functionNode.inputPortCount-- > 0){
+            consoleInNode = new ConsoleInNode("ConsoleInNode");
 
             // 메세지가 입력될 때까지 대기
-            while (inputNode.pipe.getQueueLength() == 0){      
+            while (consoleInNode.pipe.getQueueLength() == 0){      
             }
 
             // 메세지를 Function Node에 전달
-            functionNode.pipe.addMessage(inputNode.pipe.pollMessage());
+            functionNode.pipe.addMessage(consoleInNode.pipe.pollMessage());
         }
 
         // Function Node 작업 실행
         functionNode.operate();
 
+        // 출력 터미널로 값 전달
         terminalOutNode.pipe.addMessage(functionNode.pipe.pollMessage());
 
         terminalOutNode.notifyOwn();

@@ -19,7 +19,9 @@ public class InputNode extends Node {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Object receivedObject = ois.readObject();
 
-            System.out.println("수신한 데이터: " + receivedObject);
+            logger.trace("수신한 데이터: {}", receivedObject);
+            
+            pipe.addMessage(new StringMessage((String)receivedObject));
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -27,8 +29,5 @@ public class InputNode extends Node {
 
     }
 
-    public void operate2(){
-        
-    }
 
 }

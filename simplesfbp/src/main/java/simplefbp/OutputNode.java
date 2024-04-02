@@ -24,12 +24,12 @@ public class OutputNode extends Node {
     public void operate() {
         try {
             Socket socket = new Socket(ip, port);
-            System.out.println("연결완료");
+            logger.trace("{} 연결 완료", name);
 
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
             // 객체를 직렬화하여 전송
-            oos.writeObject(this.pipe.pollMessage().getData());
+            oos.writeObject(pipe.pollMessage().getData());
             oos.flush();
 
         } catch (UnknownHostException e) {
@@ -37,10 +37,6 @@ public class OutputNode extends Node {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-    }
-
-    public void operate2(){
-
     }
 
     public Pipe getPipe(){

@@ -1,16 +1,21 @@
 package simplefbp;
 
 import java.util.Scanner;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class ConsoleInNode extends ActiveNode implements Producer {
     Scanner scanner = new Scanner(System.in);
     Message message;
     Thread thread;
+    Object object;
 
     ConsoleInNode(String name) {
         super(name);
+        start();
+    }
+
+    ConsoleInNode(String name, Object object) {
+        super(name);
+        this.object = object;
         start();
     }
 
@@ -43,6 +48,7 @@ public class ConsoleInNode extends ActiveNode implements Producer {
         } else {
             logger.trace("올바른 입력값이 아닙니다.");
         }
+        this.notifyOwn();
         thread.interrupt();
     }
 
