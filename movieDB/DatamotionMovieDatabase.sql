@@ -40,7 +40,8 @@
 -- JOIN appear AS a ON a.movieID = m.movieID 
 -- JOIN person AS p ON p.personID = a.personID
 -- JOIN awardinvolve AS ai ON ai.AppearID = a.AppearID
--- WHERE p.KoreanName = '한스 짐머';
+-- JOIN Winning AS w ON w.winningID = ai.winningID
+-- WHERE p.KoreanName = '한스 짐머' AND w.WinorNot = 'Winner'; 
 
 -- 07. 감독이 '제임스 카메론'이고 '아놀드 슈워제네거'가 출연한 영화를 출력하세요
 -- SELECT Title
@@ -101,9 +102,9 @@
 -- LIMIT 1;
 
 -- 14. 제작비가 가장 적게 투입된 영화의 수익을 고르세요. (제작비가 0인 영화는 제외합니다)
--- SELECT BoxOfficeWWGross 
+-- SELECT BoxOfficeWWGross
 -- FROM movie
--- WHERE budget != 0 AND BoxOfficeWWGross != 0
+-- WHERE budget != 0 
 -- ORDER BY budget ASC
 -- LIMIT 1;
 
@@ -111,7 +112,7 @@
 -- SELECT AVG(BoxOfficeUSGross) AS 평균수익
 -- FROM movie
 -- WHERE budget <= 50000000; 
---  
+ 
 -- 16. 액션 장르 영화의 평균 수익을 고르세요
 -- SELECT AVG(BoxOfficeWWGross) AS 평균수익
 -- FROM movie AS m
@@ -143,7 +144,8 @@
 -- JOIN Role AS r ON r.RoleID = a.RoleID
 -- JOIN awardinvolve AS ai ON ai.appearID = a.appearID
 -- JOIN sector AS s ON s.SectorID = ai.SectorID
--- WHERE s.SectorKorName = '남우주연상' AND r.RoleKorName = '배우'
+-- JOIN winning AS w ON w.winningID = ai.winningID
+-- WHERE s.SectorKorName = '남우주연상' AND r.RoleKorName = '배우' AND w.WinORNot = 'Winner'
 -- GROUP BY Name
 -- ORDER BY COUNT(Name) DESC
 -- LIMIT 1;
@@ -154,7 +156,8 @@
 -- JOIN appear AS a ON a.personID = p.PersonID
 -- JOIN Role AS r ON r.RoleID = a.RoleID
 -- JOIN awardinvolve AS ai ON ai.appearID = a.appearID
--- WHERE r.RoleKorName = '배우' AND Name != '수상자 없음'
+-- JOIN winning AS w ON w.winningID = ai.winningID
+-- WHERE r.RoleKorName = '배우' AND Name != '수상자 없음' AND w.WinORNot = 'Winner'
 -- GROUP BY Name
 -- ORDER BY COUNT(Name) DESC
 -- LIMIT 1;
@@ -166,7 +169,8 @@
 -- JOIN Role AS r ON r.RoleID = a.RoleID
 -- JOIN awardinvolve AS ai ON ai.appearID = a.appearID
 -- JOIN sector AS s ON s.SectorID = ai.SectorID
--- WHERE r.RoleKorName = '배우' AND s.SectorKorName = '남우주연상'
+-- JOIN winning AS w ON w.winningID = ai.winningID
+-- WHERE r.RoleKorName = '배우' AND s.SectorKorName = '남우주연상' AND w.WinOrNot = 'Winner'
 -- GROUP BY Name
 -- HAVING COUNT(Name) >= 2;
 
@@ -175,6 +179,8 @@
 -- FROM person AS p
 -- JOIN appear AS a ON a.personID = p.PersonID
 -- JOIN awardinvolve AS ai ON ai.appearID = a.appearID
+-- JOIN winning AS w ON w.winningID = ai.winningID
+-- WHERE w.WinOrNot = 'Winner'  AND KoreanName != '수상자 없음'
 -- GROUP BY Name
 -- ORDER BY COUNT(Name) DESC
 -- LIMIT 1;
@@ -232,7 +238,7 @@
 -- JOIN movie AS m ON m.movieID = a.MovieID
 -- JOIN moviegenre AS mg ON mg.MovieID = m.MovieID
 -- JOIN genre AS g ON g.GenreID = mg.GenreID
--- WHERE g.GenreKorName = '드라마' AND (r.RoleKorName = '감독' OR r.RoleKorName = '잡역부' OR r.RoleKorName = '기타 역할' OR r.RoleKorName = '스턴트')
+-- WHERE g.GenreKorName = '드라마' AND (r.RoleKorName = '배우' OR r.RoleKorName = '잡역부' OR r.RoleKorName = '기타 역할' OR r.RoleKorName = '스턴트')
 -- GROUP BY Name
 -- ORDER BY COUNT(Name) DESC
 -- LIMIT 1;
@@ -251,7 +257,7 @@
 -- JOIN movie AS m2 ON m2.MovieID = a2.MovieID
 -- JOIN moviegenre AS mg2 ON mg2.MovieID = m2.MovieID
 -- JOIN genre AS g2 ON g2.GenreID = mg2.GenreID AND g2.GenreKorName != '호러'
--- WHERE r.RoleKorName = '감독' OR r.RoleKorName = '잡역부' OR r.RoleKorName = '기타 역할' OR r.RoleKorName = '스턴트'
+-- WHERE r.RoleKorName = '배우' OR r.RoleKorName = '잡역부' OR r.RoleKorName = '기타 역할' OR r.RoleKorName = '스턴트'
 -- GROUP BY Name;
 
 -- 31. 아카데미 영화제가 가장 많이 열린 장소는 어디인가요?
@@ -273,20 +279,29 @@
 -- JOIN appear AS a ON a.MovieID = m.MovieID
 -- JOIN awardinvolve AS ai ON ai.AppearID = a.AppearID
 -- JOIN winning AS w ON w.WinningID = ai.winningID
--- WHERE g.GenreName = 'Sci-Fi' AND w.WinOrNot = 'Nominated'
+-- WHERE g.GenreName = 'Sci-Fi'
 -- GROUP BY Title
 -- ORDER BY COUNT(Title) DESC
 -- LIMIT 1;
 
 -- 35. 드라마 장르의 영화의 아카데미 영화제 작품상 수상 비율을 구하세요.
--- SELECT 
---     SUM(CASE WHEN g.GenreKorName = '드라마' AND w.WinOrNot = 'Winner' THEN 1 ELSE 0 END) AS 수상한_드라마_영화수,
---     COUNT(CASE WHEN g.GenreKorName = '드라마' THEN 1 ELSE NULL END) AS 전체_드라마_영화수,
---     SUM(CASE WHEN g.GenreKorName = '드라마' AND w.WinOrNot = 'Winner' THEN 1 ELSE 0 END) / COUNT(CASE WHEN g.GenreKorName = '드라마' THEN 1 ELSE NULL END) AS 수상_비율
--- FROM movie AS m
--- JOIN appear AS a ON a.MovieID = m.MovieID
--- JOIN awardinvolve AS ai ON ai.AppearID = a.AppearID
--- JOIN winning AS w ON w.WinningID = ai.WinningID
--- JOIN moviegenre AS mg ON mg.MovieID = m.MovieID
--- JOIN genre AS g ON g.GenreID = mg.GenreID
+SELECT 
+	COUNT(DISTINCT CASE WHEN w.WinOrNot = 'Winner' AND s.SectorKorName = '작품상' THEN m.MovieID ELSE NULL END) AS 드라마_수상수,
+    COUNT(DISTINCT m.MovieID) AS 전체_드라마수,
+    COUNT(DISTINCT CASE WHEN w.WinOrNot = 'Winner' AND s.SectorKorName = '작품상' THEN m.MovieID ELSE NULL END) / COUNT(DISTINCT m.MovieID) AS 수상비율
+FROM movie AS m
+JOIN appear AS a ON a.MovieID = m.MovieID
+JOIN awardinvolve AS ai ON ai.AppearID = a.AppearID
+JOIN winning AS w ON w.WinningID = ai.WinningID
+JOIN moviegenre AS mg ON mg.MovieID = m.MovieID
+JOIN genre AS g ON g.GenreID = mg.GenreID
+JOIN sector AS s ON s.SectorID = ai.SectorID
+WHERE g.GenreKorName = '드라마';
+
+
+
+
+
+
+
 
