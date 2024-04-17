@@ -1,0 +1,115 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 100%;
+}
+.left-box{
+    width: 25%;
+    height: 100%;
+    background-color: rgb(32, 69, 120);
+    z-index:1;
+}
+
+.right-box{
+    width:75%;
+    height: 100%;
+    z-index:1;
+}
+
+.box-picture {
+    width: 100%;
+    height: 300px;
+    margin-left: 15%;
+    z-index:2;
+
+    position:relative;
+    top:70px;
+}
+
+.circle-img {
+    top: 200px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.circle-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.box-title {
+    width: 85%;
+    height: 200px;
+    margin-left: 15%;
+    border-top: 2px solid rgba(114, 213, 255, 0.919);
+}
+
+
+.box-name{
+    width: 95%;
+    height: 300px;
+    margin-left: 5%;
+    z-index:2;
+}
+
+.box-content{
+    width: 95%;
+    height: 200px;
+    margin-left: 5%;
+    border-top: 2px solid rgba(114, 213, 255, 0.919);
+    z-index:2;
+}
+
+p{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.hello{
+    font-size: 20px;
+}
+
+.title{
+    font-size: 30px;
+    color:white;
+}
+
+.sub-title{
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.produce1{
+    font-size: 30px;
+    color: rgb(26, 57, 100);
+
+    position:relative;
+    top:100px;
+}
+
+.produce2{
+    font-size: 40px;
+    color: rgb(26, 57, 100);
+
+    position:relative;
+    top:100px;
+}
+
+.information{
+    font-size: 30px;
+}
+
+.content-title{
+    font-size: 25px;
+}
+
+.content-subtitle{
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
