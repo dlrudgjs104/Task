@@ -1,0 +1,8 @@
+[
+  {
+    "age": 29,
+    "createdAt": 1714462498896,
+    "gender": "M",
+    "id": "student2",
+    "name": "아카데미2"
+  },{"id":"student3","name":"아카데미3","gender":"M","age":23,"createdAt":1714462498917},{"id":"student4","name":"아카데미4","gender":"M","age":26,"createdAt":1714462498917},{"id":"student6","name":"아카데미6","gender":"M","age":20,"createdAt":1714462498917},{"id":"student7","name":"아카데미7","gender":"M","age":22,"createdAt":1714462498918},{"id":"student8","name":"아카데미8","gender":"M","age":29,"createdAt":1714462498919},{"id":"student10","name":"아카데미10","gender":"M","age":27,"createdAt":1714462498919}]
