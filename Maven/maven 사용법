@@ -1,0 +1,123 @@
+maven 사용법
+
+jar -tf hello.jar
+
+패키징 해제
+unzip hello.jar
+
+
+mvn clean: 프로젝트를 정리하고 이전 빌드에서 생성된 모든 파일을 제거합니다. project_root/target 삭제합니다.
+
+mvn compile: 프로젝트의 소스 코드를 컴파일합니다.
+
+mvn package: 프로젝트에 대한 JAR(Java ARchive) 또는 WAR(Web Archive) 파일을 생성하여 배포할 수 있는 형식으로 변환합니다.
+
+패키징 jar파일 실행
+java -jar [파일명].jar
+
+
+실행가능한 jar 만들기 1
+* pom.xml → <build><plugins> 위치에 의존성 추가, <build>하위에 새로 <plugins> </plugins>를 생성해서 이 안에 dependency 내용을 삽입
+* lib파일에 다른 jar파일들을 참조하여 실행되기 때문에 lib폴더도 같이 존재해야된다.
+
+1. mvn clean
+2. mvn compile
+3. mvn package
+4. cd target
+5. java -jar [파일명].jar
+
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-dependency-plugin</artifactId>
+    <executions>
+      <execution>
+        <id>copy-dependencies</id>
+        <phase>prepare-package</phase>
+        <goals>
+          <goal>copy-dependencies</goal>
+        </goals>
+        <configuration>
+          <outputDirectory>
+            ${project.build.directory}/libs
+          </outputDirectory>
+        </configuration>
+      </execution>
+    </executions>
+</plugin>
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-jar-plugin</artifactId>
+    <configuration>
+      <archive>
+        <manifest>
+          <addClasspath>true</addClasspath>
+          <classpathPrefix>libs/</classpathPrefix>
+          <mainClass>
+            com.nhnacademy.app.movie.MovieMain
+          </mainClass>
+        </manifest>
+      </archive>
+    </configuration>
+</plugin>
+
+
+실행가능한 jar 만들기 2 - Shade ( uber-jar, fat-jar ) (가장 편리한 최신 방법)
+* 즉 uber-jar는 하나의 jar 파일에 package의 모든 dependency를 포함합니다.
+* shaded방식 사용시 shaded.jar파일을 실행시켜야함
+
+1. mvn clean
+2. mvn compile
+3. mvn package
+4. cd target
+5. java -jar [파일명].jar
+
+<plugins>
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-shade-plugin</artifactId>
+    <executions>
+      <execution>
+        <goals>
+          <goal>shade</goal>
+        </goals>
+        <configuration>
+          <shadedArtifactAttached>true</shadedArtifactAttached>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>com.nhnacademy.app.movie.MovieMain</mainClass>
+            </transformer>
+          </transformers>
+        </configuration>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
