@@ -1,9 +1,10 @@
-package com.nhnacademy.shoppingmall.product.repository.impl;
+package com.nhnacademy.shoppingmall.Category.repository.Impl;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
+import com.nhnacademy.shoppingmall.Category.repository.CategoryRepository;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
 import com.nhnacademy.shoppingmall.product.domain.Product;
 import com.nhnacademy.shoppingmall.product.repository.ProductRepository;
-import com.nhnacademy.shoppingmall.user.domain.User;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.PreparedStatement;
@@ -14,27 +15,26 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
-public class ProductRepositoryImpl implements ProductRepository {
+public class CategoryRepositoryImpl implements CategoryRepository {
+
 
     @Override
-    public Optional<Product> findById(String productId) {
-        String sql = "select * from product where product_id = ?";
-        log.debug("Find product by id: {}", sql);
+    public Optional<Category> findById(String categoryId) {
+        String sql = "select * from category where category_id = ?";
+        log.debug("Find category by id: {}", sql);
 
         ResultSet rs = null;
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
-            psmt.setString(1, productId);
+            psmt.setString(1, categoryId);
             rs = psmt.executeQuery();
             if(rs.next()){
-                Product product = new Product(
-                        rs.getString("product_id"),
-                        rs.getString("product_name"),
-                        rs.getBigDecimal("product_price"),
-                        rs.getString("product_discription"),
-                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                Category category = new Category(
+                        rs.getString("category_id"),
+                        rs.getString("category_name")
+
                 );
-                return Optional.of(product);
+                return Optional.of(category);
             }
         } catch (SQLException e){
             log.debug("error:{}", e.getMessage());
@@ -50,20 +50,33 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public int save(Product product) {
-        String sql = "insert into product (product_id, product_name, product_price, product_discription, product_rdate) values (?, ?, ?, ?, ?)";
+    public int save(Category category) {
+        String sql = "insert into category (category_id, category_name) values (?, ?)";
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
-            psmt.setString(1, product.getProductId());
-            psmt.setString(2, product.getProductName());
-            psmt.setBigDecimal(3, product.getProductPrice());
-            psmt.setString(4, product.getProductDescription());
-            psmt.setTimestamp(5, Timestamp.valueOf(product.getProductRdate()));
+            psmt.setString(1, category.getCategoryId());
+            psmt.setString(2, category.getCategoryName());
 
             int result = psmt.executeUpdate();
-            log.debug("Insert product reslut:{}", result);
+            log.debug("Insert category : {}", result);
 
+            return result;
+        } catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    public int deleteByCategoryId(String categoryId) {
+        String sql = "delete from category where category_id = ?";
+
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
+        {
+            psmt.setString(1, categoryId);
+            int result = psmt.executeUpdate();
+            log.debug("Delete category : {}", result);
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
@@ -71,14 +84,18 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public int deleteByProductId(String productId) {
-        String sql = "delete from product where product_id = ?";
+    public int update(Category category) {
+        String sql = "update category set category_id = ?, category_name = ? where category_id = ?";
+        log.debug("Update category : {}", sql);
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
-            psmt.setString(1, productId);
+            psmt.setString(1, category.getCategoryId());
+            psmt.setString(2, category.getCategoryName());
+            psmt.setString(3, category.getCategoryId());
+
             int result = psmt.executeUpdate();
-            log.debug("Delete product reslut:{}", result);
+            log.debug("Update category : {}", result);
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
@@ -86,33 +103,14 @@ public class ProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public int update(Product product) {
-        String sql = "update product set product_name = ?, product_price = ?, product_description = ? where product_id = ?";
-        log.debug("Update product: {}", sql);
-
-        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
-        {
-            psmt.setString(1, product.getProductName());
-            psmt.setBigDecimal(2, product.getProductPrice());
-            psmt.setString(3, product.getProductDescription());
-
-            int result = psmt.executeUpdate();
-            log.debug("Update product reslut:{}", result);
-            return result;
-        } catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public int countByProductId(String productId) {
-        String sql = "select count(*) from product where product_id = ?";
-        log.debug("Count product: {}", sql);
+    public int countByCategoryId(String categoryId) {
+        String sql = "select count(*) from category where category_id = ?";
+        log.debug("Count category : {}", sql);
         ResultSet rs = null;
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
-            psmt.setString(1, productId);
+            psmt.setString(1, categoryId);
             rs = psmt.executeQuery();
             if(rs.next()){
                 return rs.getInt(1);

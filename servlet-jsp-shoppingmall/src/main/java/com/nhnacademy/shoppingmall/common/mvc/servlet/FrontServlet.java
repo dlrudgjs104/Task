@@ -56,7 +56,6 @@ public class FrontServlet extends HttpServlet {
         } catch (Exception e){
             log.error("error:{}", e.getMessage());
             DbConnectionThreadLocal.setSqlError(true);
-            DbConnectionThreadLocal.reset();
             //todo#7-5 예외가 발생하면 해당 예외에 대해서 적절한 처리를 합니다.
             throw new PageNotFoundException(e.getMessage());
 

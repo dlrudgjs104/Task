@@ -13,7 +13,7 @@ public class SignupController implements BaseController {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return "shop/login/signup_form";
+        return "shop/signup/signup_form";
     }
 
 }

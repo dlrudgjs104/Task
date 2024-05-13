@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 @Slf4j
-@RequestMapping(method = RequestMapping.Method.POST,value = "/signup.do")
+@RequestMapping(method = RequestMapping.Method.POST,value = "/signupAction.do")
 public class SignupPostController implements BaseController {
     private final UserService userService = new UserServiceImpl(new UserRepositoryImpl());
 
@@ -32,12 +32,12 @@ public class SignupPostController implements BaseController {
 
         try {
             userService.saveUser(user);
-            req.setAttribute("signupCheck", true);
-            return "shop/login/signup_check_form";
+            req.setAttribute("signupMessage", "가입에 성공하였습니다.");
+            return "shop/signup/signup_form";
         } catch (Exception e) {
             log.debug(e.getMessage());
-            req.setAttribute("signupCheck", false);
-            return "shop/login/signup_check_form";
+            req.setAttribute("signupMessage", "가입에 실패하였습니다.");
+            return "shop/signup/signup_form";
         }
     }
 }

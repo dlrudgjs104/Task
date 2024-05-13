@@ -24,7 +24,6 @@ public class UserRepositoryImpl implements UserRepository {
         log.debug("sql:{}",sql);
         ResultSet rs = null;
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, userId);
@@ -46,8 +45,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            DbConnectionThreadLocal.reset();
         }
 
         return Optional.empty();
@@ -60,7 +57,6 @@ public class UserRepositoryImpl implements UserRepository {
         log.debug("findById:{}",sql);
 
         ResultSet rs = null;
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, userId);
@@ -82,7 +78,6 @@ public class UserRepositoryImpl implements UserRepository {
             log.debug("error:{}", e.getMessage());
             throw new RuntimeException(e);
         } finally {
-            DbConnectionThreadLocal.reset();
             try{
                 rs.close();
             }catch (SQLException e){
@@ -97,7 +92,6 @@ public class UserRepositoryImpl implements UserRepository {
         //todo#3-3 회원등록, executeUpdate()을 반환합니다.
         String sql = "insert into users (user_id, user_name, user_password, user_birth, user_auth, user_point, created_at, latest_login_at) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, user.getUserId());
@@ -115,8 +109,6 @@ public class UserRepositoryImpl implements UserRepository {
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
-        } finally {
-            DbConnectionThreadLocal.reset();
         }
     }
 
@@ -125,7 +117,6 @@ public class UserRepositoryImpl implements UserRepository {
         //todo#3-4 회원삭제, executeUpdate()을 반환합니다.
         String sql = "delete from users where user_id = ?";
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, userId);
@@ -134,8 +125,6 @@ public class UserRepositoryImpl implements UserRepository {
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
-        } finally {
-            DbConnectionThreadLocal.reset();
         }
     }
 
@@ -145,7 +134,6 @@ public class UserRepositoryImpl implements UserRepository {
         String sql = "update users set user_name = ?, user_password = ?, user_birth = ?, user_auth = ?, user_point = ? where user_id = ?";
         log.debug("update:{}", sql);
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, user.getUserName());
@@ -160,8 +148,6 @@ public class UserRepositoryImpl implements UserRepository {
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
-        } finally {
-            DbConnectionThreadLocal.reset();
         }
     }
 
@@ -171,7 +157,6 @@ public class UserRepositoryImpl implements UserRepository {
         String sql = "update users set latest_login_at = ? where user_id = ?";
         log.debug("update_latest_login_at:{}", sql);
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setTimestamp(1, Timestamp.valueOf(latestLoginAt));
@@ -182,8 +167,6 @@ public class UserRepositoryImpl implements UserRepository {
             return result;
         } catch (SQLException e){
             throw new RuntimeException(e);
-        } finally {
-            DbConnectionThreadLocal.reset();
         }
     }
 
@@ -194,7 +177,6 @@ public class UserRepositoryImpl implements UserRepository {
         log.debug("count_by_user_id:{}", userId);
         ResultSet rs = null;
 
-        DbConnectionThreadLocal.initialize();
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, userId);
@@ -205,7 +187,6 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (SQLException e){
             throw new RuntimeException(e);
         } finally {
-            DbConnectionThreadLocal.reset();
             try{
                 rs.close();
             } catch (SQLException e){
