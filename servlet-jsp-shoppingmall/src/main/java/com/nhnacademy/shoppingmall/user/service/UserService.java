@@ -2,7 +2,10 @@ package com.nhnacademy.shoppingmall.user.service;
 
 import com.nhnacademy.shoppingmall.user.domain.User;
 
+import java.util.List;
+
 public interface UserService {
+    List<User> findAllUser();
 
     User getUser(String userId);
 

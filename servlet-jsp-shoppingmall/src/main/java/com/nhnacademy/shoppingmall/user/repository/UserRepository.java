@@ -3,9 +3,11 @@ package com.nhnacademy.shoppingmall.user.repository;
 import com.nhnacademy.shoppingmall.user.domain.User;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
+    List<User> findAll();
     Optional<User> findByUserIdAndUserPassword(String userId, String userPassword);
     Optional<User> findById(String userId);
     int save(User user);

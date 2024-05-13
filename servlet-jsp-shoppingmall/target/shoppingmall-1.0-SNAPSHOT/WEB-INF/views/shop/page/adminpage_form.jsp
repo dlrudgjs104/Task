@@ -63,3 +63,37 @@
     </div>
 </c:if>
 
+<c:if test="${listKind == 'user'}">
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>유저 아이디</th>
+                    <th>유저 이름</th>
+                    <th>유저 패스워드</th>
+                    <th>유저 생년월일</th>
+                    <th>유저 권한</th>
+                    <th>유저 포인트</th>
+                    <th>유저 생성날짜</th>
+                    <th>유저 마지막 로그인 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="user" items="${userList}">
+                    <tr>
+                        <td>${user.userId}</td>
+                        <td>${user.userName}</td>
+                        <td>${user.userPassword}</td>
+                        <td>${user.userBirth}</td>
+                        <td>${user.userAuth}</td>
+                        <td>${user.userPoint}</td>
+                        <td>${user.createdAt}</td>
+                        <td>${user.latestLoginAt}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</c:if>

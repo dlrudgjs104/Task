@@ -3,16 +3,47 @@ package com.nhnacademy.shoppingmall.user.repository.impl;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
 import com.nhnacademy.shoppingmall.common.util.DbUtils;
 import com.nhnacademy.shoppingmall.user.domain.User;
+import com.nhnacademy.shoppingmall.user.domain.User;
 import com.nhnacademy.shoppingmall.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 public class UserRepositoryImpl implements UserRepository {
+
+    @Override
+    public List<User> findAll() {
+        List<User> userList = new ArrayList<>();
+        String sql = "select * from users";
+        log.debug("Find all users: {}", sql);
+
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql);
+             ResultSet rs = psmt.executeQuery()) {
+            while (rs.next()) {
+                User user = new User(
+                        rs.getString("user_id"),
+                        rs.getString("user_name"),
+                        rs.getString("user_password"),
+                        rs.getString("user_birth"),
+                        User.Auth.valueOf(rs.getString("user_auth")),
+                        rs.getInt("user_point"),
+                        Objects.nonNull(rs.getTimestamp("created_at")) ? rs.getTimestamp("created_at").toLocalDateTime() : null,
+                        Objects.nonNull(rs.getTimestamp("latest_login_at")) ? rs.getTimestamp("latest_login_at").toLocalDateTime() : null
+                );
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            log.debug("Error: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return userList;
+    }
 
     @Override
     public Optional<User> findByUserIdAndUserPassword(String userId, String userPassword) {
