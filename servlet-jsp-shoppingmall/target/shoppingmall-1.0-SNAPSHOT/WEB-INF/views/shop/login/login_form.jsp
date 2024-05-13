@@ -4,7 +4,7 @@
     <div class="p-2">
         <form method="post" action="/loginAction.do">
 
-            <h1 class="h3 mb-3 fw-normal">가입 정보 입력</h1>
+            <h1 class="h3 mb-3 fw-normal">로그인 정보 입력</h1>
 
             <div class="form-floating">
                 <input type="text" name="user_id" class="form-control" id="user_id" placeholder="회원 아이디" required>
@@ -16,7 +16,10 @@
                 <label for="user_password">비밀번호</label>
             </div>
 
-            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">가입 신청</button>
+            <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">로그인</button>
+
+            <%-- 서버에서 전달된 결과 메시지를 출력하는 부분 --%>
+            <h1 style="color: red;" class="h3 mb-3 fw-normal">${loginMessage}</h1>
 
             <p class="mt-5 mb-3 text-muted">© 2022-2024</p>
 

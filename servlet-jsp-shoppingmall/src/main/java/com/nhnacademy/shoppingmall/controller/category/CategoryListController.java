@@ -13,9 +13,10 @@ import java.util.List;
 
 @RequestMapping(method = RequestMapping.Method.GET,value = "/categoryList.do")
 public class CategoryListController implements BaseController {
+    CategoryService categoryService = new CategoryServiceImpl(new CategoryRepositoryImpl());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        CategoryService categoryService = new CategoryServiceImpl(new CategoryRepositoryImpl());
         List<Category> categoryList = categoryService.findAllCategory();
 
         req.setAttribute("listKind", "category");

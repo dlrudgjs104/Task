@@ -17,9 +17,10 @@ import java.util.List;
 
 @RequestMapping(method = RequestMapping.Method.GET,value = "/productList.do")
 public class ProductListController implements BaseController {
+    ProductService productService = new ProductServiceImpl(new ProductRepositoryImpl());
+
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        ProductService productService = new ProductServiceImpl(new ProductRepositoryImpl());
         List<Product> productList = productService.findAllProduct();
 
         req.setAttribute("listKind", "product");

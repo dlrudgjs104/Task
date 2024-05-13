@@ -37,6 +37,7 @@ public class LoginPostController implements BaseController {
         } catch (Exception e) {
             log.debug(e.getMessage());
         }
+        req.setAttribute("loginMessage", "로그인에 실패하였습니다.");
         return "shop/login/login_form";
     }
 }

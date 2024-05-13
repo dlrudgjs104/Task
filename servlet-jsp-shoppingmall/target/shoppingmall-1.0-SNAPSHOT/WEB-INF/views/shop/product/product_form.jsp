@@ -1,3 +1,5 @@
+<%@ page import="com.nhnacademy.shoppingmall.Category.domain.Category" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" session="false" %>
 
 <div style="margin: auto; width: 800px;">
@@ -13,6 +15,18 @@
         <form method="post" action="/productAddAction.do">
 
             <h1 class="h3 mb-3 fw-normal" style="margin-top: 20px;">제품 정보 입력</h1>
+
+            <div class="form-floating">
+                <select name="category_id" class="form-select" id="category_id" required>
+                    <% List<Category> categoryList = (List<Category>) request.getAttribute("categoryList"); %>
+                    <% for (int i = 0; i < categoryList.size(); i++) { %>
+                    <option value="<%= categoryList.get(i).getCategoryId() %>">
+                        <%= categoryList.get(i).getCategoryName() %>
+                    </option>
+                    <% } %>
+                </select>
+                <label for="category_id">제품 카테고리</label>
+            </div>
 
             <div class="form-floating">
                 <input type="text" name="product_id" class="form-control" id="product_id" placeholder="제품 아이디" required>
