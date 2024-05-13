@@ -5,10 +5,17 @@ import com.nhnacademy.shoppingmall.Category.repository.CategoryRepository;
 import com.nhnacademy.shoppingmall.Category.service.CategoryService;
 import com.nhnacademy.shoppingmall.product.exception.ProductAlreadyExistsException;
 
+import java.util.List;
+
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository) {this.categoryRepository = categoryRepository;}
+
+    @Override
+    public List<Category> findAllCategory() {
+        return categoryRepository.findAll();
+    }
 
     @Override
     public Category getCategory(String categoryId) {

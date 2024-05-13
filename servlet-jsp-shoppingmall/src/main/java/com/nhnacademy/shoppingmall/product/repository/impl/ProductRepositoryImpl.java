@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.product.repository.impl;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
 import com.nhnacademy.shoppingmall.product.domain.Product;
 import com.nhnacademy.shoppingmall.product.repository.ProductRepository;
@@ -10,11 +11,38 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 @Slf4j
 public class ProductRepositoryImpl implements ProductRepository {
+
+    @Override
+    public List<Product> findAll() {
+        List<Product> productList = new ArrayList<>();
+        String sql = "select * from product";
+        log.debug("Find all products: {}", sql);
+
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql);
+             ResultSet rs = psmt.executeQuery()) {
+            while (rs.next()) {
+                Product product = new Product(
+                        rs.getString("product_id"),
+                        rs.getString("product_name"),
+                        rs.getBigDecimal("product_price"),
+                        rs.getString("product_description"),
+                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                );
+                productList.add(product);
+            }
+        } catch (SQLException e) {
+            log.debug("Error: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return productList;
+    }
 
     @Override
     public Optional<Product> findById(String productId) {
@@ -31,7 +59,7 @@ public class ProductRepositoryImpl implements ProductRepository {
                         rs.getString("product_id"),
                         rs.getString("product_name"),
                         rs.getBigDecimal("product_price"),
-                        rs.getString("product_discription"),
+                        rs.getString("product_description"),
                         Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
                 );
                 return Optional.of(product);
@@ -51,7 +79,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public int save(Product product) {
-        String sql = "insert into product (product_id, product_name, product_price, product_discription, product_rdate) values (?, ?, ?, ?, ?)";
+        String sql = "insert into product (product_id, product_name, product_price, product_description, product_rdate) values (?, ?, ?, ?, ?)";
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {

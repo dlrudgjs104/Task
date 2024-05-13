@@ -8,11 +8,34 @@ import lombok.extern.slf4j.Slf4j;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
 public class CategoryRepositoryImpl implements CategoryRepository {
 
+    @Override
+    public List<Category> findAll() {
+        List<Category> categoryList = new ArrayList<>();
+        String sql = "select * from category";
+        log.debug("Find all categories: {}", sql);
+
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql);
+             ResultSet rs = psmt.executeQuery()) {
+            while (rs.next()) {
+                Category category = new Category(
+                        rs.getString("category_id"),
+                        rs.getString("category_name")
+                );
+                categoryList.add(category);
+            }
+        } catch (SQLException e) {
+            log.debug("Error: {}", e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return categoryList;
+    }
 
     @Override
     public Optional<Category> findById(String categoryId) {

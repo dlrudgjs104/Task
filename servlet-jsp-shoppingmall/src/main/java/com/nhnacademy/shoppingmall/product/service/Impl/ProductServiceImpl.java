@@ -5,10 +5,17 @@ import com.nhnacademy.shoppingmall.product.exception.ProductAlreadyExistsExcepti
 import com.nhnacademy.shoppingmall.product.repository.ProductRepository;
 import com.nhnacademy.shoppingmall.product.service.ProductService;
 
+import java.util.List;
+
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {this.productRepository = productRepository;}
+
+    @Override
+    public List<Product> findAllProduct() {
+        return productRepository.findAll();
+    }
 
     @Override
     public Product getProduct(String productId) {
