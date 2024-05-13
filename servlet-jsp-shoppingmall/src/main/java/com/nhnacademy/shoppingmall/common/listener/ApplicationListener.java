@@ -1,6 +1,5 @@
 package com.nhnacademy.shoppingmall.common.listener;
 
-import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
 import com.nhnacademy.shoppingmall.user.domain.User;
 import com.nhnacademy.shoppingmall.user.repository.impl.UserRepositoryImpl;

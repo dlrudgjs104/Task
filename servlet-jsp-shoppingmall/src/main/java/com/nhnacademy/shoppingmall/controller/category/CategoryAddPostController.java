@@ -6,16 +6,10 @@ import com.nhnacademy.shoppingmall.Category.service.CategoryService;
 import com.nhnacademy.shoppingmall.Category.service.Impl.CategoryServiceImpl;
 import com.nhnacademy.shoppingmall.common.mvc.annotation.RequestMapping;
 import com.nhnacademy.shoppingmall.common.mvc.controller.BaseController;
-import com.nhnacademy.shoppingmall.product.domain.Product;
-import com.nhnacademy.shoppingmall.product.repository.impl.ProductRepositoryImpl;
-import com.nhnacademy.shoppingmall.product.service.Impl.ProductServiceImpl;
-import com.nhnacademy.shoppingmall.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Slf4j
 @RequestMapping(method = RequestMapping.Method.POST,value = "/categoryAddAction.do")

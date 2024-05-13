@@ -3,10 +3,7 @@ package com.nhnacademy.shoppingmall.Category.service.Impl;
 import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.Category.repository.CategoryRepository;
 import com.nhnacademy.shoppingmall.Category.service.CategoryService;
-import com.nhnacademy.shoppingmall.product.domain.Product;
 import com.nhnacademy.shoppingmall.product.exception.ProductAlreadyExistsException;
-import com.nhnacademy.shoppingmall.product.repository.ProductRepository;
-import com.nhnacademy.shoppingmall.product.service.ProductService;
 
 public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
