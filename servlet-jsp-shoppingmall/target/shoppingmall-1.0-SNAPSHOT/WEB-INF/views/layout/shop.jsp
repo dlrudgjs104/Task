@@ -74,11 +74,13 @@
     <!-- Category Bar -->
     <div class="category-container bg-secondary">
         <ul class="nav d-flex justify-content-around"> <!-- 각 항목을 가로 방향으로 일정한 간격으로 배치 -->
+            <li class="nav-item"><a href="/index.do?categoryId=all" class="nav-link px-2 text-white">전체</a> </li><!-- 전체 항목 -->
             <c:forEach var="category" items="${categoryList}">
                 <li class="nav-item">
-                    <a href="#" class="nav-link px-2 text-white">${category.categoryName}</a>
+                    <a href="/index.do?categoryId=${category.categoryId}" class="nav-link px-2 text-white">${category.categoryName}</a>
                 </li>
             </c:forEach>
+
         </ul>
     </div>
     <!-- End Category Bar -->

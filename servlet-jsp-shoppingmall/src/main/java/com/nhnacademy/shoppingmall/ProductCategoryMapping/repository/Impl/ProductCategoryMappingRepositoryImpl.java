@@ -148,7 +148,7 @@ public class ProductCategoryMappingRepositoryImpl implements ProductCategoryMapp
         {
             psmt.setString(1, categoryId);
             rs = psmt.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 Product product = new Product(
                         rs.getString("product_id"),
                         rs.getString("product_name"),
