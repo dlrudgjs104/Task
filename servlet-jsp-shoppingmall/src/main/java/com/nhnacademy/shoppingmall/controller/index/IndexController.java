@@ -40,7 +40,6 @@ public class IndexController implements BaseController {
             productList = productCategoryMappingService.getProdcutByCategoryId(categoryId);
         }
 
-
         req.setAttribute("productList", productList);
 
         List<Category> categoryList = categoryService.findAllCategory();

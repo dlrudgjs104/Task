@@ -49,7 +49,7 @@
                     <%-- 사용자가 로그인되어 있는지 확인하여 버튼 변경 --%>
                     <% if(isLoggedIn) { %>
                     <span class="text-white me-2"><%= userId %>님</span> <!-- 사용자 ID + "님" 표시 -->
-                    <a class="btn btn-outline-light me-2" href="/logout.do" >로그아웃</a>ㄱ
+                    <a class="btn btn-outline-light me-2" href="/logout.do" >로그아웃</a>
                     <% } else { %>
                     <a class="btn btn-outline-light me-2" href="/login.do" >로그인</a>
                     <a class="btn btn-warning" href="signup.do" >회원가입</a>

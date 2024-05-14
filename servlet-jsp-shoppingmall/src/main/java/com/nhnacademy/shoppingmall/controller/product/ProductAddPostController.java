@@ -16,8 +16,12 @@ import com.nhnacademy.shoppingmall.product.service.Impl.ProductServiceImpl;
 import com.nhnacademy.shoppingmall.product.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +43,8 @@ public class ProductAddPostController implements BaseController {
         String productDescription = req.getParameter("product_description");
         LocalDateTime now = LocalDateTime.now();
 
+        fileUpload(req, resp);
+
         Product product = new Product(productId, productName, productPrice, productDescription, now);
         log.debug("Product : {}", product);
 
@@ -58,5 +64,40 @@ public class ProductAddPostController implements BaseController {
             req.setAttribute("productAddMessage", "제품 등록에 실패하였습니다.");
             return "shop/product/product_form";
         }
+    }
+
+    public void fileUpload(HttpServletRequest req, HttpServletResponse resp) {
+        try{
+            for(Part part : req.getParts()){
+                String contentDisposition = part.getHeader("Content-Disposition");
+
+                if (contentDisposition.contains("filename=")) {
+                    String fileName = extractFileName(contentDisposition);
+
+                    if (part.getSize() > 0) {
+                        String path = req.getServletContext().getRealPath("/ProductImage");
+                        part.write(path + File.separator + fileName);
+                        part.delete();
+                    }
+                } else {
+                    String formValue = req.getParameter(part.getName());
+                    log.error("{}={}", part.getName(), formValue);
+                }
+            }
+        } catch (ServletException e) {
+            log.debug("ServletException occurred: {}", e.getMessage());
+        } catch (IOException e) {
+            log.debug("IOException occurred: {}", e.getMessage());
+        }
+    }
+
+    private String extractFileName(String contentDisposition) {
+        log.error("contentDisposition:{}",contentDisposition);
+        for (String token : contentDisposition.split(";")) {
+            if (token.trim().startsWith("filename")) {
+                return token.substring(token.indexOf("=")+2, token.length()-1);
+            }
+        }
+        return null;
     }
 }

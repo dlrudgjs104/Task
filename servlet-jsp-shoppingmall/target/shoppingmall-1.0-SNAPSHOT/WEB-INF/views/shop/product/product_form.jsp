@@ -4,17 +4,13 @@
 
 <div style="margin: auto; width: 800px;">
     <div class="p-2">
-        <h1 class="h3 mb-3 fw-normal">썸네일 이미지 업로드</h1>
-        <div class="form-control">
-            <form method="post" action="/productFileUpload.do" enctype="multipart/form-data">
+        <h1 class="h3 mb-3 fw-normal">제품 정보 및 썸네일 이미지 업로드</h1>
+
+        <form method="post" action="/productAddAction.do" enctype="multipart/form-data">
+
+            <div class="form-control">
                 <input type="file" name="product_image" id="product_image" required>
-                <input type="submit" />
-            </form>
-        </div>
-
-        <form method="post" action="/productAddAction.do">
-
-            <h1 class="h3 mb-3 fw-normal" style="margin-top: 20px;">제품 정보 입력</h1>
+            </div>
 
             <div class="form-floating">
                 <select name="category_id" class="form-select" id="category_id" required>
@@ -48,14 +44,11 @@
                 <label for="product_description">제품 설명</label>
             </div>
 
-
-
             <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">제품 등록</button>
 
             <%-- 서버에서 전달된 결과 메시지를 출력하는 부분 --%>
             <h1 style="color: red;" class="h3 mb-3 fw-normal">${productAddMessage}</h1>
 
-            <p class="mt-5 mb-3 text-muted">© 2022-2024</p>
         </form>
     </div>
 </div>
