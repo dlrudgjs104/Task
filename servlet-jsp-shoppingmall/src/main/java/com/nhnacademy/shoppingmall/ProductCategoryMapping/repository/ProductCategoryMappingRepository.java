@@ -13,4 +13,5 @@ public interface ProductCategoryMappingRepository {
     int deleteById(String productId, String categoryId);
     int update(ProductCategoryMapping productCategoryMapping);
     int countById(String productId, String categoryId);
+    List<Product> findByCategoryId(String categoryId);
 }

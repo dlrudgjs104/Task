@@ -49,15 +49,39 @@
                     <%-- 사용자가 로그인되어 있는지 확인하여 버튼 변경 --%>
                     <% if(isLoggedIn) { %>
                     <span class="text-white me-2"><%= userId %>님</span> <!-- 사용자 ID + "님" 표시 -->
-                    <a class="btn btn-outline-light me-2" href="/logout.do" >로그아웃</a>
+                    <a class="btn btn-outline-light me-2" href="/logout.do" >로그아웃</a>ㄱ
                     <% } else { %>
                     <a class="btn btn-outline-light me-2" href="/login.do" >로그인</a>
                     <a class="btn btn-warning" href="signup.do" >회원가입</a>
                     <% } %>
                 </div>
+
             </div>
         </div>
     </header>
+
+    <style>
+        .nav-item {
+            flex: 1; /* 각 항목이 동일한 넓이를 갖도록 설정 */
+            text-align: center; /* 텍스트를 가운데 정렬 */
+        }
+
+        .nav-link {
+            padding: 0.5rem 1rem; /* 각 항목의 안쪽 여백 설정 */
+        }
+    </style>
+
+    <!-- Category Bar -->
+    <div class="category-container bg-secondary">
+        <ul class="nav d-flex justify-content-around"> <!-- 각 항목을 가로 방향으로 일정한 간격으로 배치 -->
+            <c:forEach var="category" items="${categoryList}">
+                <li class="nav-item">
+                    <a href="#" class="nav-link px-2 text-white">${category.categoryName}</a>
+                </li>
+            </c:forEach>
+        </ul>
+    </div>
+    <!-- End Category Bar -->
 
     <main>
         <div class="album py-5 bg-light">

@@ -30,18 +30,18 @@
                 <img src="<%= noImage %>" alt="No Image" width="100%" height="225">
             <div class="card-body">
                 <p class="card-text"><%= product.getProductName() %></p>
-                <p class="card-text"><%= product.getProductPrice() %></p>
+                <p class="card-text"><%= product.getProductPrice() %> 원</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary">보기</button>
+                        <a href="링크 주소" class="btn btn-sm btn-outline-secondary">보기</a>
                         <%-- 관리자일 경우에만 Edit 버튼 표시 --%>
                         <% Object roleObj = request.getSession().getAttribute("role");
                             if (roleObj != null && roleObj.equals("ROLE_ADMIN")) { %>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">편집</button>
+                        <a href="링크 주소" class="btn btn-sm btn-outline-secondary">편집</a>
                         <button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
                         <% } %>
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted"><%= product.getProductRdate() %></small>
                 </div>
             </div>
         </div>

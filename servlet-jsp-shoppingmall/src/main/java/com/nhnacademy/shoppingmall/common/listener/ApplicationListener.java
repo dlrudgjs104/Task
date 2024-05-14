@@ -4,6 +4,10 @@ import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.Category.repository.Impl.CategoryRepositoryImpl;
 import com.nhnacademy.shoppingmall.Category.service.CategoryService;
 import com.nhnacademy.shoppingmall.Category.service.Impl.CategoryServiceImpl;
+import com.nhnacademy.shoppingmall.ProductCategoryMapping.domain.ProductCategoryMapping;
+import com.nhnacademy.shoppingmall.ProductCategoryMapping.repository.Impl.ProductCategoryMappingRepositoryImpl;
+import com.nhnacademy.shoppingmall.ProductCategoryMapping.service.Impl.ProductCategoryMappingServiceImpl;
+import com.nhnacademy.shoppingmall.ProductCategoryMapping.service.ProductCategoryMappingService;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
 import com.nhnacademy.shoppingmall.product.domain.Product;
 import com.nhnacademy.shoppingmall.product.repository.impl.ProductRepositoryImpl;
@@ -26,6 +30,7 @@ public class ApplicationListener implements ServletContextListener {
     private final UserService userService = new UserServiceImpl(new UserRepositoryImpl());
     private final CategoryService categoryService = new CategoryServiceImpl(new CategoryRepositoryImpl());
     private final ProductService productService = new ProductServiceImpl(new ProductRepositoryImpl());
+    private final ProductCategoryMappingService productCategoryMappingService = new ProductCategoryMappingServiceImpl(new ProductCategoryMappingRepositoryImpl());
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -65,6 +70,15 @@ public class ApplicationListener implements ServletContextListener {
             if(productService.getProduct(product.getProductId()) == null){
                 productService.saveProduct(product);
                 log.info("Product created:{}", "productId: " + i + ", productName: " + names[i] + ", productPrice: 10000, productDescription: " + descriptions[i]);
+            }
+        }
+
+        for(int i = 0; i < names.length; i++){
+            ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(String.valueOf(i),String.valueOf(i));
+
+            if(productCategoryMappingService.getProductCategoryMapping(productCategoryMapping.getProductId(), productCategoryMapping.getCategoryId()) == null){
+                productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
+                log.info("ProductCategoryMapping created: {}", productCategoryMapping);
             }
         }
 

@@ -41,6 +41,7 @@
                 <thead>
                 <tr>
                     <th>상품 아이디</th>
+                    <th>상품 카테고리</th>
                     <th>상품 이름</th>
                     <th>상품 가격</th>
                     <th>상품 설명</th>
@@ -51,6 +52,7 @@
                 <c:forEach var="product" items="${productList}">
                     <tr>
                         <td>${product.productId}</td>
+                        <td></td>
                         <td>${product.productName}</td>
                         <td>${product.productPrice}</td>
                         <td>${product.productDescription}</td>

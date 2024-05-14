@@ -50,7 +50,7 @@ public class ProductCategoryMappingRepositoryImpl implements ProductCategoryMapp
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
             psmt.setString(1, productId);
-            psmt.setString(1, categoryId);
+            psmt.setString(2, categoryId);
             rs = psmt.executeQuery();
             if(rs.next()){
                 ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(
@@ -135,6 +135,40 @@ public class ProductCategoryMappingRepositoryImpl implements ProductCategoryMapp
             }
         }
         return 0;
+    }
+
+    @Override
+    public List<Product> findByCategoryId(String categoryId) {
+        List<Product> productList = new ArrayList<>();
+        String sql = "select p.* from product p inner join product_category_mapping pcm on p.product_id = pcm.product_id inner join category c on pcm.category_id = c.category_id where c.category_id = ?";
+        log.debug("Find product By categoryId: {}", categoryId);
+
+        ResultSet rs = null;
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
+        {
+            psmt.setString(1, categoryId);
+            rs = psmt.executeQuery();
+            if(rs.next()){
+                Product product = new Product(
+                        rs.getString("product_id"),
+                        rs.getString("product_name"),
+                        rs.getBigDecimal("product_price"),
+                        rs.getString("product_description"),
+                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                );
+                productList.add(product);
+            }
+        } catch (SQLException e){
+            log.debug("error:{}", e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            try{
+                rs.close();
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return productList;
     }
 
 }

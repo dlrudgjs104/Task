@@ -51,4 +51,9 @@ public class ProductCategoryMappingServiceImpl implements ProductCategoryMapping
         }
     }
 
+    @Override
+    public List<Product> getProdcutByCategoryId(String categoryId) {
+        return productCategoryMappingRepository.findByCategoryId(categoryId);
+    }
+
 }
