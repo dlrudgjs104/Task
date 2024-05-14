@@ -1,69 +1,70 @@
 ﻿CREATE TABLE `users` (
-	`user_id`	varchar(50)	NOT NULL,
-	`user_name`	varchar(50)	NOT NULL,
-	`user_password`	varchar(200)	NOT NULL,
-	`user_birth`	varchar(8)	NOT NULL,
-	`user_auth`	varchar(10)	NOT NULL,
-	`user_point`	int	NOT NULL	DEFAULT 1000000,
-	`created_at`	datetime	NOT NULL,
-	`latest_login_at`	datetime	NULL	DEFAULT null
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디',
+	`user_name`	varchar(50)	NOT NULL	COMMENT '회원_이름',
+	`user_password`	varchar(200)	NOT NULL	COMMENT '회원_패스워드',
+	`user_birth`	varchar(8)	NOT NULL	COMMENT '회원_생년월일',
+	`user_auth`	varchar(10)	NOT NULL	COMMENT '회원_권한',
+	`user_point`	int	NOT NULL	DEFAULT 1000000	COMMENT '회원_포인트',
+	`created_at`	datetime	NOT NULL	COMMENT '회원_가입일자',
+	`latest_login_at`	datetime	NULL	DEFAULT null	COMMENT '마지막 로그인 일자'
 );
 
 CREATE TABLE `product` (
-	`product_id`	varchar(50)	NOT NULL,
-	`product_name`	varchar(128)	NOT NULL,
-	`product_price`	decimal	NOT NULL,
-	`product_description`	varchar(128)	NULL,
-	`product_rdate`	datetime	NOT NULL
+	`product_id`	varchar(50)	NOT NULL	COMMENT '상품_아이디',
+	`product_name`	varchar(128)	NOT NULL	COMMENT '상품_아이디',
+	`product_price`	decimal	NOT NULL	COMMENT '상품_가격',
+	`product_description`	varchar(128)	NULL	COMMENT '상품_설명',
+	`product_rdate`	datetime	NOT NULL	COMMENT '상품_등록일자',
+	`product_image_path`	varchar(128)	NOT NULL	COMMENT '상품_이미지_경로'
 );
 
 CREATE TABLE `orders` (
-	`order_id`	varchar(50)	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL,
-	`order_date`	datetime	NOT NULL,
-	`order_total_amount`	decimal	NOT NULL,
-	`order_point_earned`	int	NOT NULL
+	`order_id`	varchar(50)	NOT NULL	COMMENT '주문_아이디',
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디',
+	`order_date`	datetime	NOT NULL	COMMENT '주문_날짜',
+	`order_total_amount`	decimal	NOT NULL	COMMENT '주문_총액',
+	`order_point_earned`	int	NOT NULL	COMMENT '주문_적립_포인트'
 );
 
 CREATE TABLE `address` (
-	`address_id`	varchar(50)	NOT NULL,
-	`address_name`	varchar(128)	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL
+	`address_id`	varchar(50)	NOT NULL	COMMENT '주소_아이디',
+	`address_name`	varchar(128)	NOT NULL	COMMENT '주소_이름',
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디'
 );
 
 CREATE TABLE `cart` (
-	`cart_id`	varchar(50)	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL,
-	`product_id`	varchar(50)	NOT NULL,
-	`product_quantity`	int	NOT NULL,
-	`order_check`	boolean	NOT NULL
+	`cart_id`	varchar(50)	NOT NULL	COMMENT '장바구니_아이디',
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디',
+	`product_id`	varchar(50)	NOT NULL	COMMENT '상품_아이디',
+	`product_quantity`	int	NOT NULL	COMMENT '상품_수량',
+	`order_check`	boolean	NOT NULL	COMMENT '주문_여부'
 );
 
 CREATE TABLE `category` (
-	`category_id`	varchar(50)	NOT NULL,
-	`category_name`	varchar(128)	NOT NULL
+	`category_id`	varchar(50)	NOT NULL	COMMENT '카테고리_아이디',
+	`category_name`	varchar(128)	NOT NULL	COMMENT '카테고리_이름'
 );
 
 CREATE TABLE `product_category_mapping` (
-	`product_id`	varchar(50)	NOT NULL,
-	`category_id`	varchar(50)	NOT NULL
+	`product_id`	varchar(50)	NOT NULL	COMMENT '상품_아이디',
+	`category_id`	varchar(50)	NOT NULL	COMMENT '카테고리_아이디'
 );
 
 CREATE TABLE `order_detail` (
-	`order_detail_id`	varchar(50)	NOT NULL,
-	`order_id`	varchar(50)	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL,
-	`product_id`	varchar(50)	NOT NULL,
-	`product_quantity`	int	NOT NULL
+	`order_detail_id`	varchar(50)	NOT NULL	COMMENT '주문_상세_아이디',
+	`order_id`	varchar(50)	NOT NULL	COMMENT '주문_아이디',
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디',
+	`product_id`	varchar(50)	NOT NULL	COMMENT '상품_아이디',
+	`product_quantity`	int	NOT NULL	COMMENT '상품_수량'
 );
 
 CREATE TABLE `point_transaction` (
-	`point_transaction_id`	varchar(50)	NOT NULL,
-	`order_id`	varchar(50)	NOT NULL,
-	`user_id`	varchar(50)	NOT NULL,
-	`point_transaction_type`	ENUM('적립', '사용')	NOT NULL,
-	`point_transaction_amount`	int	NOT NULL,
-	`point_transaction_date`	datetime	NOT NULL
+	`point_transaction_id`	varchar(50)	NOT NULL	COMMENT '포인트_거래_아이디',
+	`order_id`	varchar(50)	NOT NULL	COMMENT '주문_아이디',
+	`user_id`	varchar(50)	NOT NULL	COMMENT '회원_아이디',
+	`point_transaction_type`	ENUM('적립', '사용')	NOT NULL	COMMENT '포인트_거래_유형',
+	`point_transaction_amount`	int	NOT NULL	COMMENT '포인트 사용액',
+	`point_transaction_date`	datetime	NOT NULL	COMMENT '포인트_사용_날짜'
 );
 
 ALTER TABLE `users` ADD CONSTRAINT `PK_USERS` PRIMARY KEY (

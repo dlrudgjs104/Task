@@ -51,9 +51,6 @@ public class ProductAddPostController implements BaseController {
         ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
         log.debug("ProductCategoryMapping : {}", productCategoryMapping);
 
-        List<Category> categoryList = categoryService.findAllCategory();
-        req.setAttribute("categoryList", categoryList);
-
         try{
             productService.saveProduct(product);
             productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
@@ -67,12 +64,14 @@ public class ProductAddPostController implements BaseController {
     }
 
     public void fileUpload(HttpServletRequest req, HttpServletResponse resp) {
+        String productId = req.getParameter("product_id");
+
         try{
             for(Part part : req.getParts()){
                 String contentDisposition = part.getHeader("Content-Disposition");
 
                 if (contentDisposition.contains("filename=")) {
-                    String fileName = extractFileName(contentDisposition);
+                    String fileName = extractFileName(contentDisposition, productId);
 
                     if (part.getSize() > 0) {
                         String path = req.getServletContext().getRealPath("/ProductImage");
@@ -91,13 +90,24 @@ public class ProductAddPostController implements BaseController {
         }
     }
 
-    private String extractFileName(String contentDisposition) {
+    private String extractFileName(String contentDisposition, String productId) {
         log.error("contentDisposition:{}",contentDisposition);
         for (String token : contentDisposition.split(";")) {
             if (token.trim().startsWith("filename")) {
-                return token.substring(token.indexOf("=")+2, token.length()-1);
+                return productId + token.substring(token.indexOf("."), token.length()-1);
             }
         }
         return null;
     }
+
+//    private String extractFileName(String contentDisposition) {
+//        log.error("contentDisposition:{}",contentDisposition);
+//        for (String token : contentDisposition.split(";")) {
+//            if (token.trim().startsWith("filename")) {
+//                return token.substring(token.indexOf("=")+2, token.length()-1);
+//            }
+//        }
+//        return null;
+//    }
+
 }

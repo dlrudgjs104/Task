@@ -17,8 +17,6 @@ public class ProductAddController implements BaseController {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        List<Category> categoryList = categoryService.findAllCategory();
-        req.setAttribute("categoryList", categoryList);
         return "shop/product/product_form";
     }
 }

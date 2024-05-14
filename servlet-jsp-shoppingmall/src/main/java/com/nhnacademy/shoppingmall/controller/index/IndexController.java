@@ -42,9 +42,6 @@ public class IndexController implements BaseController {
 
         req.setAttribute("productList", productList);
 
-        List<Category> categoryList = categoryService.findAllCategory();
-        req.setAttribute("categoryList", categoryList);
-
         return "shop/main/index";
 
     }

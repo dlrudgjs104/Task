@@ -14,7 +14,7 @@
 
             <div class="form-floating">
                 <select name="category_id" class="form-select" id="category_id" required>
-                    <% List<Category> categoryList = (List<Category>) request.getAttribute("categoryList"); %>
+                    <% List<Category> categoryList = (List<Category>) application.getAttribute("categoryList"); %>
                     <% for (int i = 0; i < categoryList.size(); i++) { %>
                     <option value="<%= categoryList.get(i).getCategoryId() %>">
                         <%= categoryList.get(i).getCategoryName() %>

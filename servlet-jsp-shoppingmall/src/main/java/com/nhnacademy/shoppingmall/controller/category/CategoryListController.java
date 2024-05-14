@@ -20,7 +20,6 @@ public class CategoryListController implements BaseController {
         List<Category> categoryList = categoryService.findAllCategory();
 
         req.setAttribute("listKind", "category");
-        req.setAttribute("categoryList", categoryList);
         return "shop/page/adminpage_form";
     }
 }

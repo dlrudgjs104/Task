@@ -82,6 +82,10 @@ public class ApplicationListener implements ServletContextListener {
             }
         }
 
+        // 카테고리 리스트 등록
+        List<Category> categoryList = categoryService.findAllCategory();
+        sce.getServletContext().setAttribute("categoryList", categoryList);
+
         DbConnectionThreadLocal.reset();
     }
 }
