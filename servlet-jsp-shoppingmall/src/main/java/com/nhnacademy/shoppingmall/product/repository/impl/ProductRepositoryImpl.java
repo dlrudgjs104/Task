@@ -127,6 +127,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             psmt.setBigDecimal(2, product.getProductPrice());
             psmt.setString(3, product.getProductDescription());
             psmt.setString(4, product.getProductImagePath());
+            psmt.setString(5, product.getProductId());
 
             int result = psmt.executeUpdate();
             log.debug("Update product reslut:{}", result);

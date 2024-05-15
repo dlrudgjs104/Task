@@ -27,6 +27,8 @@ public class ProductEditController implements BaseController {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         String productId = req.getParameter("productId");
         Product product = productService.getProduct(productId);
+        String productImagePath = product.getProductImagePath();
+        req.setAttribute("ProductImagePath",productImagePath);
 
         if(product.getProductImagePath().equals("null")){
             product.setProductImagePath("/ProductImage/no-image.png");
