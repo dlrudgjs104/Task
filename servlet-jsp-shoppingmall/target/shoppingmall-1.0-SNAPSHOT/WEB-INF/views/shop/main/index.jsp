@@ -19,10 +19,7 @@
     <% for (Product product : productList) { %>
     <div class="col">
         <div class="card shadow-sm">
-            <% String image = product.getProductImagePath(); %>
-            <%-- 업로드된 이미지가 없을 경우 대체 이미지로 대체합니다. --%>
-            <% if (image.equals("null")) {image = "/ProductImage/no-image.png";} %>
-            <img src= "<%= image %>" alt="No Image" width="100%" height="225">
+            <img src= "<%= product.getProductImagePath() %>" alt="No Image" width="100%" height="225">
             <div class="card-body">
                 <p class="card-text"><%= product.getProductName() %></p>
                 <p class="card-text"><%= product.getProductPrice() %> 원</p>

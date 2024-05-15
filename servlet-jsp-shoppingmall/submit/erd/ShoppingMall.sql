@@ -15,7 +15,7 @@ CREATE TABLE `product` (
 	`product_price`	decimal	NOT NULL	COMMENT '상품_가격',
 	`product_description`	varchar(128)	NULL	COMMENT '상품_설명',
 	`product_rdate`	datetime	NOT NULL	COMMENT '상품_등록일자',
-	`product_image_path`	varchar(128)	NOT NULL	COMMENT '상품_이미지_경로'
+	`product_image_path`	varchar(128)	NOT NULL	DEFAULT /ProductImage/no-image.png	COMMENT '상품_이미지_경로'
 );
 
 CREATE TABLE `orders` (

@@ -35,32 +35,35 @@ public class ProductEditPostController implements BaseController {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String categoryId = req.getParameter("category_id");
-        String productId = req.getParameter("product_id");
-        String productName = req.getParameter("product_name");
-        BigDecimal productPrice = new BigDecimal(req.getParameter("product_price"));
-        String productDescription = req.getParameter("product_description");
-        String productImagePath = req.getParameter("product_image_path");
-        String productImagePathTemp = fileUpload(req, resp);
-
-        if(productImagePath.equals("/ProductImage/no-image.png")){
-            productDescription = "null";
-        } else if(!productImagePathTemp.equals("null")){
-            productImagePath = productImagePathTemp;
-        }
-
-        Product product = new Product(productId, productName, productPrice, productDescription, null, productImagePath);
-        log.debug("Product : {}", product);
-
-        ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
-        log.debug("ProductCategoryMapping : {}", productCategoryMapping);
-
-        req.setAttribute("productCategoryMapping", productCategoryMapping);
-
-        req.setAttribute("product", product);
-
+        String categoryId = null;
+        String productId = null;
+        String productName = null;
+        BigDecimal productPrice = null;
+        String productDescription = null;
+        String productImagePath = null;
+        String productImagePathTemp;
+        Product product;
+        ProductCategoryMapping productCategoryMapping;
 
         try{
+            categoryId = req.getParameter("category_id");
+            productId = req.getParameter("product_id");
+            productName = req.getParameter("product_name");
+            productPrice = new BigDecimal(req.getParameter("product_price"));
+            productDescription = req.getParameter("product_description");
+            productImagePath = req.getParameter("product_image_path");
+            productImagePathTemp = fileUpload(req, resp);
+
+            if(productImagePathTemp != null) {
+                productImagePath = productImagePathTemp;
+            }
+
+            product = new Product(productId, productName, productPrice, productDescription, null, productImagePath);
+            log.debug("Product : {}", product);
+
+            productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
+            log.debug("ProductCategoryMapping : {}", productCategoryMapping);
+
             productService.updateProduct(product);
             productCategoryMappingService.updateProductCategoryMapping(productCategoryMapping);
             req.setAttribute("productEditMessage", "제품 정보 수정에 성공하였습니다.");
@@ -69,6 +72,16 @@ public class ProductEditPostController implements BaseController {
             log.error(e.getMessage());
             req.setAttribute("productEditMessage", "제품 정보 수정에 실패하였습니다.");
             return "shop/product/product_edit_form";
+        } finally {
+            product = new Product(productId, productName, productPrice, productDescription, null, productImagePath);
+            log.debug("Product : {}", product);
+
+            productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
+            log.debug("ProductCategoryMapping : {}", productCategoryMapping);
+
+            req.setAttribute("productCategoryMapping", productCategoryMapping);
+
+            req.setAttribute("product", product);
         }
     }
 
@@ -82,12 +95,17 @@ public class ProductEditPostController implements BaseController {
                 if (contentDisposition.contains("filename=")) {
                     String fileName = extractFileName(contentDisposition, productId);
 
-                    if (fileName.equals("null")){
-                        return "null";
+                    if (fileName == null){
+                        return null;
+                    } else if(!fileExtensionCheck(fileName)){
+                        throw new RuntimeException();
                     }
 
                     if (part.getSize() > 0) {
-                        String path = req.getServletContext().getRealPath("/ProductImage") + File.separator + fileName;
+                        String path = req.getServletContext().getRealPath("/ProductImage") + File.separator;
+                        fileCheck(path, productId);
+
+                        path += fileName;
                         part.write(path);
                         part.delete();
                         path = "/ProductImage" + File.separator + fileName;
@@ -103,7 +121,7 @@ public class ProductEditPostController implements BaseController {
         } catch (IOException e) {
             log.debug("IOException occurred: {}", e.getMessage());
         }
-        return "";
+        return null;
     }
 
     private String extractFileName(String contentDisposition, String productId) {
@@ -111,13 +129,39 @@ public class ProductEditPostController implements BaseController {
         for (String token : contentDisposition.split(";")) {
             if (token.trim().startsWith("filename")) {
                 if (token.trim().contains("\"\"")) {
-                    return "null";
+                    return null;
                 } else {
                     return productId + token.substring(token.indexOf("."), token.length()-1);
                 }
             }
         }
-        return "null";
+        return null;
+    }
+
+    // 파일 업로드 공격을 방지하기위한 업로드 파일에 대한 확장자 체크
+    private boolean fileExtensionCheck(String path){
+        String[] imageExtensions = {".jpg", ".jpeg", ".png"};
+        for(String extension : imageExtensions){
+            if(path.endsWith(extension)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 기존 이미지 파일 제거
+    public void fileCheck(String path, String productId){
+        String[] imageExtensions = {".jpg", ".jpeg", ".png"};
+
+        for(String extension : imageExtensions){
+            String testPath = path + productId + extension;
+            File newFile = new File(testPath);
+
+            // 기존 파일이 이미 존재한다면 삭제
+            if (newFile.exists()) {
+                newFile.delete();
+            }
+        }
     }
 
 }

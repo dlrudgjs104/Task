@@ -72,11 +72,16 @@ public class ProductAddPostController implements BaseController {
                 if (contentDisposition.contains("filename=")) {
                     String fileName = extractFileName(contentDisposition, productId);
 
-                    if (fileName.equals("null")){
-                        return "null";
+                    if (fileName == null){
+                        return null;
                     }
+
                     if (part.getSize() > 0) {
                         String path = req.getServletContext().getRealPath("/ProductImage") + File.separator + fileName;
+                        if(!fileExtensionCheck(path)){
+                            return null;
+                        }
+
                         part.write(path);
                         part.delete();
                         path = "/ProductImage" + File.separator + fileName;
@@ -92,21 +97,33 @@ public class ProductAddPostController implements BaseController {
         } catch (IOException e) {
             log.debug("IOException occurred: {}", e.getMessage());
         }
-        return "";
+        return null;
     }
 
+    // 파일 이름 추출
     private String extractFileName(String contentDisposition, String productId) {
         log.error("contentDisposition:{}",contentDisposition);
         for (String token : contentDisposition.split(";")) {
             if (token.trim().startsWith("filename")) {
                 if (token.trim().contains("\"\"")) {
-                    return "null";
+                    return null;
                 } else {
                     return productId + token.substring(token.indexOf("."), token.length()-1);
                 }
             }
         }
-        return "null";
+        return null;
+    }
+
+    // 파일 업로드 공격을 방지하기위한 업로드 파일에 대한 확장자 체크
+    private boolean fileExtensionCheck(String path){
+        String[] imageExtensions = {".jpg", ".jpeg", ".png"};
+        for(String extension : imageExtensions){
+            if(path.endsWith(extension)){
+                return true;
+            }
+        }
+        return false;
     }
 
 }

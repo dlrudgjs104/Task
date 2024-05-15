@@ -64,10 +64,9 @@ public class ApplicationListener implements ServletContextListener {
 
         names = new String[]{"비니", "셔츠", "청바지", "구두"};
         String[] descriptions = {"평범한 비니", " 얼룩덜룩한 셔츠", "찢어진 청바지", " 검은색 구두"};
-        String path = sce.getServletContext().getRealPath("/ProductImage/no-image.png");
 
         for(int i = 0; i < names.length; i++){
-            Product product = new Product(String.valueOf(i), names[i], new BigDecimal(10_000), descriptions[i], LocalDateTime.now(), path);
+            Product product = new Product(String.valueOf(i), names[i], new BigDecimal(10_000), descriptions[i], LocalDateTime.now(), null);
 
             if(productService.getProduct(product.getProductId()) == null){
                 productService.saveProduct(product);

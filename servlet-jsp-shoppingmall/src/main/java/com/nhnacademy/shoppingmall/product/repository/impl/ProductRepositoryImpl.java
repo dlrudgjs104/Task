@@ -90,7 +90,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             psmt.setBigDecimal(3, product.getProductPrice());
             psmt.setString(4, product.getProductDescription());
             psmt.setTimestamp(5, Timestamp.valueOf(product.getProductRdate()));
-            psmt.setString(6, product.getProductImagePath());
+            psmt.setString(6, product.getProductImagePath() != null ? product.getProductImagePath() : "/ProductImage/no-image.png");
 
             int result = psmt.executeUpdate();
             log.debug("Insert product reslut:{}", result);
