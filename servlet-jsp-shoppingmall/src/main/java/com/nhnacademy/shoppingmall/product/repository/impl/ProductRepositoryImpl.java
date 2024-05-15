@@ -33,7 +33,8 @@ public class ProductRepositoryImpl implements ProductRepository {
                         rs.getString("product_name"),
                         rs.getBigDecimal("product_price"),
                         rs.getString("product_description"),
-                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null,
+                        rs.getString("product_image_path")
                 );
                 productList.add(product);
             }
@@ -60,7 +61,8 @@ public class ProductRepositoryImpl implements ProductRepository {
                         rs.getString("product_name"),
                         rs.getBigDecimal("product_price"),
                         rs.getString("product_description"),
-                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null,
+                        rs.getString("product_image_path")
                 );
                 return Optional.of(product);
             }
@@ -79,7 +81,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public int save(Product product) {
-        String sql = "insert into product (product_id, product_name, product_price, product_description, product_rdate) values (?, ?, ?, ?, ?)";
+        String sql = "insert into product (product_id, product_name, product_price, product_description, product_rdate, product_image_path) values (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
         {
@@ -88,6 +90,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             psmt.setBigDecimal(3, product.getProductPrice());
             psmt.setString(4, product.getProductDescription());
             psmt.setTimestamp(5, Timestamp.valueOf(product.getProductRdate()));
+            psmt.setString(6, product.getProductImagePath());
 
             int result = psmt.executeUpdate();
             log.debug("Insert product reslut:{}", result);
@@ -115,7 +118,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public int update(Product product) {
-        String sql = "update product set product_name = ?, product_price = ?, product_description = ? where product_id = ?";
+        String sql = "update product set product_name = ?, product_price = ?, product_description = ?, product_image_path = ? where product_id = ?";
         log.debug("Update product: {}", sql);
 
         try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
@@ -123,6 +126,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             psmt.setString(1, product.getProductName());
             psmt.setBigDecimal(2, product.getProductPrice());
             psmt.setString(3, product.getProductDescription());
+            psmt.setString(4, product.getProductImagePath());
 
             int result = psmt.executeUpdate();
             log.debug("Update product reslut:{}", result);

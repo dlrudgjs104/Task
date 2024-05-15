@@ -16,13 +16,15 @@ public class Product {
     private BigDecimal productPrice;
     private String productDescription;
     private LocalDateTime productRdate;
+    private String productImagePath;
 
-    public Product(String productId, String productName, BigDecimal productPrice, String productDescription, LocalDateTime productRdate) {
+    public Product(String productId, String productName, BigDecimal productPrice, String productDescription, LocalDateTime productRdate, String productImagePath) {
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productDescription = productDescription;
         this.productRdate = productRdate;
+        this.productImagePath = productImagePath;
     }
 
     @Override
@@ -34,11 +36,12 @@ public class Product {
                 productName.equals(product.productName) &&
                 productPrice == product.productPrice &&
                 productDescription.equals(product.productDescription) &&
-                productRdate.equals(product.productRdate);
+                productRdate.equals(product.productRdate) &&
+                productImagePath.equals(product.productImagePath);
     }
 
     @Override
-    public int hashCode() { return Objects.hash(productId, productName, productPrice, productDescription, productRdate); }
+    public int hashCode() { return Objects.hash(productId, productName, productPrice, productDescription, productRdate, productImagePath); }
 
     @Override
     public String toString(){
@@ -48,6 +51,7 @@ public class Product {
                 ", productPrice='" + productPrice +
                 ", productDescription='" + productDescription + '\'' +
                 ", productRdate='" + productRdate +
+                ", productImagePath='" + productImagePath + '\'' +
                 '}';
     }
 }

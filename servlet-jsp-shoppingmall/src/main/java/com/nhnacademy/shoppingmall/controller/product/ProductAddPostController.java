@@ -42,10 +42,9 @@ public class ProductAddPostController implements BaseController {
         BigDecimal productPrice = new BigDecimal(req.getParameter("product_price"));
         String productDescription = req.getParameter("product_description");
         LocalDateTime now = LocalDateTime.now();
+        String productImagePath = fileUpload(req, resp);
 
-        fileUpload(req, resp);
-
-        Product product = new Product(productId, productName, productPrice, productDescription, now);
+        Product product = new Product(productId, productName, productPrice, productDescription, now, productImagePath);
         log.debug("Product : {}", product);
 
         ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
@@ -63,7 +62,7 @@ public class ProductAddPostController implements BaseController {
         }
     }
 
-    public void fileUpload(HttpServletRequest req, HttpServletResponse resp) {
+    public String fileUpload(HttpServletRequest req, HttpServletResponse resp) {
         String productId = req.getParameter("product_id");
 
         try{
@@ -73,10 +72,15 @@ public class ProductAddPostController implements BaseController {
                 if (contentDisposition.contains("filename=")) {
                     String fileName = extractFileName(contentDisposition, productId);
 
+                    if (fileName.equals("null")){
+                        return "null";
+                    }
                     if (part.getSize() > 0) {
-                        String path = req.getServletContext().getRealPath("/ProductImage");
-                        part.write(path + File.separator + fileName);
+                        String path = req.getServletContext().getRealPath("/ProductImage") + File.separator + fileName;
+                        part.write(path);
                         part.delete();
+                        path = "/ProductImage" + File.separator + fileName;
+                        return path;
                     }
                 } else {
                     String formValue = req.getParameter(part.getName());
@@ -88,26 +92,21 @@ public class ProductAddPostController implements BaseController {
         } catch (IOException e) {
             log.debug("IOException occurred: {}", e.getMessage());
         }
+        return "";
     }
 
     private String extractFileName(String contentDisposition, String productId) {
         log.error("contentDisposition:{}",contentDisposition);
         for (String token : contentDisposition.split(";")) {
             if (token.trim().startsWith("filename")) {
-                return productId + token.substring(token.indexOf("."), token.length()-1);
+                if (token.trim().contains("\"\"")) {
+                    return "null";
+                } else {
+                    return productId + token.substring(token.indexOf("."), token.length()-1);
+                }
             }
         }
-        return null;
+        return "null";
     }
-
-//    private String extractFileName(String contentDisposition) {
-//        log.error("contentDisposition:{}",contentDisposition);
-//        for (String token : contentDisposition.split(";")) {
-//            if (token.trim().startsWith("filename")) {
-//                return token.substring(token.indexOf("=")+2, token.length()-1);
-//            }
-//        }
-//        return null;
-//    }
 
 }

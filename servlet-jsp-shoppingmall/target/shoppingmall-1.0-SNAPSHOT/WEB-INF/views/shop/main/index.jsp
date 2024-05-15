@@ -1,14 +1,7 @@
 <%@ page import="com.nhnacademy.shoppingmall.product.domain.Product" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: nhn
-  Date: 2023/11/08
-  Time: 10:20 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- 이 이미지가 노출될 경우 대체 이미지로 대체합니다. --%>
-<% String noImage = request.getContextPath() + "/resources/no-image.png"; %>
+
 <div class="row">
     <div class="col-12">
         <div class="text-end mb-3">
@@ -26,8 +19,10 @@
     <% for (Product product : productList) { %>
     <div class="col">
         <div class="card shadow-sm">
-<%--            <img src="<%= product.getImageUrl() %>" alt="<%= product.getProductName() %>" width="100%" height="225">--%>
-                <img src="<%= noImage %>" alt="No Image" width="100%" height="225">
+            <% String image = product.getProductImagePath(); %>
+            <%-- 업로드된 이미지가 없을 경우 대체 이미지로 대체합니다. --%>
+            <% if (image.equals("null")) {image = "/ProductImage/no-image.png";} %>
+            <img src= "<%= image %>" alt="No Image" width="100%" height="225">
             <div class="card-body">
                 <p class="card-text"><%= product.getProductName() %></p>
                 <p class="card-text"><%= product.getProductPrice() %> 원</p>

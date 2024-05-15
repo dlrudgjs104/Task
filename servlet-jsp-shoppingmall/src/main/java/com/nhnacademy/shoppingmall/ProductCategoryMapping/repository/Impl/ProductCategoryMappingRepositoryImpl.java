@@ -154,7 +154,8 @@ public class ProductCategoryMappingRepositoryImpl implements ProductCategoryMapp
                         rs.getString("product_name"),
                         rs.getBigDecimal("product_price"),
                         rs.getString("product_description"),
-                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null
+                        Objects.nonNull(rs.getTimestamp("product_rdate")) ? rs.getTimestamp("product_rdate").toLocalDateTime() : null,
+                        rs.getString("product_image_path")
                 );
                 productList.add(product);
             }

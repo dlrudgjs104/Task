@@ -16,15 +16,16 @@ import com.nhnacademy.shoppingmall.product.service.ProductService;
 import com.nhnacademy.shoppingmall.user.repository.impl.UserRepositoryImpl;
 import com.nhnacademy.shoppingmall.user.service.UserService;
 import com.nhnacademy.shoppingmall.user.service.impl.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+@Slf4j
 @RequestMapping(method = RequestMapping.Method.GET,value = {"/index.do"})
 public class IndexController implements BaseController {
     private final ProductService productService = new ProductServiceImpl(new ProductRepositoryImpl());
-    private final CategoryService categoryService = new CategoryServiceImpl(new CategoryRepositoryImpl());
     private final ProductCategoryMappingService productCategoryMappingService = new ProductCategoryMappingServiceImpl(new ProductCategoryMappingRepositoryImpl());
 
     @Override
