@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.ProductCategoryMapping.service;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.domain.ProductCategoryMapping;
 import com.nhnacademy.shoppingmall.product.domain.Product;
 
@@ -17,5 +18,7 @@ public interface ProductCategoryMappingService {
     void deleteProductCategoryMapping(String productId, String categoryId);
 
     List<Product> getProdcutByCategoryId(String categoryId);
+
+    List<Category> getCategoryByProductId(String productId);
 
 }

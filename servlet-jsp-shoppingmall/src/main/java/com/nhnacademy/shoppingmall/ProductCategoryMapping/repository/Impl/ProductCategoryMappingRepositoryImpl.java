@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.ProductCategoryMapping.repository.Impl;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.domain.ProductCategoryMapping;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.repository.ProductCategoryMappingRepository;
 import com.nhnacademy.shoppingmall.common.mvc.transaction.DbConnectionThreadLocal;
@@ -170,6 +171,38 @@ public class ProductCategoryMappingRepositoryImpl implements ProductCategoryMapp
             }
         }
         return productList;
+    }
+
+    @Override
+    public List<Category> findByProductId(String productId) {
+        List<Category> categorList = new ArrayList<>();
+        String sql = "select c.* from category c inner join product_category_mapping pcm on c.category_id = pcm.category_id inner join product p on pcm.product_id = p.product_id where p.product_id = ?";
+
+        log.debug("Find category By productId: {}", productId);
+
+        ResultSet rs = null;
+        try (PreparedStatement psmt = DbConnectionThreadLocal.getConnection().prepareStatement(sql))
+        {
+            psmt.setString(1, productId);
+            rs = psmt.executeQuery();
+            while(rs.next()){
+                Category category = new Category(
+                        rs.getString("category_id"),
+                        rs.getString("category_name")
+                );
+                categorList.add(category);
+            }
+        } catch (SQLException e){
+            log.debug("error:{}", e.getMessage());
+            throw new RuntimeException(e);
+        } finally {
+            try{
+                rs.close();
+            }catch (SQLException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return categorList;
     }
 
 }

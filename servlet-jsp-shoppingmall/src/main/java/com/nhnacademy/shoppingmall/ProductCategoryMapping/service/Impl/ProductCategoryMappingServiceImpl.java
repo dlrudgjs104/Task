@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.ProductCategoryMapping.service.Impl;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.domain.ProductCategoryMapping;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.exception.ProductCategoryMappingAlreadyExistsException;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.repository.ProductCategoryMappingRepository;
@@ -54,6 +55,11 @@ public class ProductCategoryMappingServiceImpl implements ProductCategoryMapping
     @Override
     public List<Product> getProdcutByCategoryId(String categoryId) {
         return productCategoryMappingRepository.findByCategoryId(categoryId);
+    }
+
+    @Override
+    public List<Category> getCategoryByProductId(String productId) {
+        return productCategoryMappingRepository.findByProductId(productId);
     }
 
 }

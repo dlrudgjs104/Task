@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.ProductCategoryMapping.repository;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.ProductCategoryMapping.domain.ProductCategoryMapping;
 import com.nhnacademy.shoppingmall.product.domain.Product;
 
@@ -14,4 +15,5 @@ public interface ProductCategoryMappingRepository {
     int update(ProductCategoryMapping productCategoryMapping);
     int countById(String productId, String categoryId);
     List<Product> findByCategoryId(String categoryId);
+    List<Category> findByProductId(String productId);
 }
