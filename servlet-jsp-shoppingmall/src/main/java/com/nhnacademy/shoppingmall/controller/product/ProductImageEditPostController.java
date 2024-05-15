@@ -47,11 +47,11 @@ public class ProductImageEditPostController implements BaseController {
         try{
             productService.updateProduct(product);
             req.setAttribute("productEditMessage", "제품 사진 수정에 성공하였습니다.");
-            return "shop/product/product_form";
+            return "shop/product/product_edit_form";
         } catch (Exception e){
             log.error(e.getMessage());
             req.setAttribute("productEditMessage", "제품 사진 수정에 실패하였습니다.");
-            return "shop/product/product_form";
+            return "shop/product/product_edit_form";
         }
     }
 

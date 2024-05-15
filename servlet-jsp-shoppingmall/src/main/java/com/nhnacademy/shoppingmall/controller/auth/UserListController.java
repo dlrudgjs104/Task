@@ -22,6 +22,6 @@ public class UserListController implements BaseController {
 
         req.setAttribute("listKind", "user");
         req.setAttribute("userList", userList);
-        return "shop/page/adminpage_form";
+        return "shop/page/admin_page_form";
     }
 }

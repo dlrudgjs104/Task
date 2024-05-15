@@ -54,11 +54,11 @@ public class ProductAddPostController implements BaseController {
             productService.saveProduct(product);
             productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
             req.setAttribute("productAddMessage", "제품 등록에 성공하였습니다.");
-            return "shop/product/product_form";
+            return "shop/product/product_add_form";
         } catch (Exception e){
             log.error(e.getMessage());
             req.setAttribute("productAddMessage", "제품 등록에 실패하였습니다.");
-            return "shop/product/product_form";
+            return "shop/product/product_add_form";
         }
     }
 

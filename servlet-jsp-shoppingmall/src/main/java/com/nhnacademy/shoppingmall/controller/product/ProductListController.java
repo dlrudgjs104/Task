@@ -25,6 +25,6 @@ public class ProductListController implements BaseController {
 
         req.setAttribute("listKind", "product");
         req.setAttribute("productList", productList);
-        return "shop/page/adminpage_form";
+        return "shop/page/admin_page_form";
     }
 }

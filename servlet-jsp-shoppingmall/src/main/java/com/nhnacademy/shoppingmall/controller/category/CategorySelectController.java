@@ -10,6 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CategorySelectController implements BaseController {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return "shop/category/categoryadd_form";
+        return "shop/category/category_add_form";
     }
 }

@@ -13,6 +13,6 @@ public class AdminPageController implements BaseController {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        return "shop/page/adminpage_form";
+        return "shop/page/admin_page_form";
     }
 }

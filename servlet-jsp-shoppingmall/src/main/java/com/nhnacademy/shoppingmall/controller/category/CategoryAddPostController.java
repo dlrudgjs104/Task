@@ -28,11 +28,11 @@ public class CategoryAddPostController implements BaseController {
         try{
             categoryService.saveCategory(category);
             req.setAttribute("categoryAddMessage", "카테고리 등록에 성공하였습니다.");
-            return "shop/category/categoryadd_form";
+            return "shop/category/category_add_form";
         } catch (Exception e){
             log.error(e.getMessage());
             req.setAttribute("categoryAddMessage", "카테고리 등록에 실패하였습니다.");
-            return "shop/category/categoryadd_form";
+            return "shop/category/category_add_form";
         }
     }
 }
