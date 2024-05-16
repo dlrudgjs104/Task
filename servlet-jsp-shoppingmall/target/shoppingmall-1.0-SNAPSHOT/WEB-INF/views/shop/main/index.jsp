@@ -30,7 +30,7 @@
                         <% Object roleObj = request.getSession().getAttribute("role");
                             if (roleObj != null && roleObj.equals("ROLE_ADMIN")) { %>
                         <a href="productEdit.do?productId=<%= product.getProductId() %>" class="btn btn-sm btn-outline-secondary">편집</a>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+                        <a href="productDelete.do?productId=<%= product.getProductId() %>" class="btn btn-sm btn-outline-secondary">삭제</a>
                         <% } %>
                     </div>
                     <small class="text-muted"><%= product.getProductRdate() %></small>
