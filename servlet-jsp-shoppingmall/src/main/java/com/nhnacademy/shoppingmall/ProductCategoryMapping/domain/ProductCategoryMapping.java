@@ -32,7 +32,7 @@ public class ProductCategoryMapping {
     public String toString(){
         return "ProductCategoryMapping{" +
                 "productId='" + productId + '\'' +
-                ", productName='" + categoryId + '\'' +
+                ", categoryId='" + categoryId + '\'' +
                 '}';
     }
 }

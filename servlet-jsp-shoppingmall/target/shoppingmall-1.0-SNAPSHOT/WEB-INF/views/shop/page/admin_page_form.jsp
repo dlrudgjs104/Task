@@ -1,3 +1,5 @@
+<%@ page import="com.nhnacademy.shoppingmall.Category.domain.Category" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -49,15 +51,21 @@
                 </tr>
                 </thead>
                 <tbody>
+                <% List<List<Category>> productCategoryList = (List<List<Category>>) request.getAttribute("productCategoryList"); int i = 0;%>
                 <c:forEach var="product" items="${productList}">
                     <tr>
                         <td>${product.productId}</td>
-                        <td></td>
+                        <td>
+                            <c:forEach var="category" items="<%=productCategoryList.get(i)%>" varStatus="status">
+                                ${category.categoryName}<c:if test="${!status.last}">, </c:if>
+                            </c:forEach>
+                        </td>
                         <td>${product.productName}</td>
                         <td>${product.productPrice}</td>
                         <td>${product.productDescription}</td>
                         <td>${product.productRdate}</td>
                     </tr>
+                    <%i++;%>
                 </c:forEach>
                 </tbody>
             </table>

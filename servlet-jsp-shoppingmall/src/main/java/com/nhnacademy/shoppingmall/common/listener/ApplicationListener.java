@@ -32,6 +32,7 @@ public class ApplicationListener implements ServletContextListener {
     private final CategoryService categoryService = new CategoryServiceImpl(new CategoryRepositoryImpl());
     private final ProductService productService = new ProductServiceImpl(new ProductRepositoryImpl());
     private final ProductCategoryMappingService productCategoryMappingService = new ProductCategoryMappingServiceImpl(new ProductCategoryMappingRepositoryImpl());
+    private final int PRODUCT_CATEGORY_MAX_COUNT = 3;
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -86,6 +87,8 @@ public class ApplicationListener implements ServletContextListener {
         // 카테고리 리스트 등록
         List<Category> categoryList = categoryService.findAllCategory();
         sce.getServletContext().setAttribute("categoryList", categoryList);
+        // 카테고리 최대 선택 개수 등록
+        sce.getServletContext().setAttribute("PRODUCT_CATEGORY_MAX_COUNT", PRODUCT_CATEGORY_MAX_COUNT);
 
         DbConnectionThreadLocal.reset();
     }

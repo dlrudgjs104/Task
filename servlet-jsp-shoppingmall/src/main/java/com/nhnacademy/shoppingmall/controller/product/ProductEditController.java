@@ -16,6 +16,7 @@ import com.nhnacademy.shoppingmall.product.service.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping(method = RequestMapping.Method.GET,value = "/productEdit.do")
@@ -36,15 +37,10 @@ public class ProductEditController implements BaseController {
         req.setAttribute("product", product);
 
         List<Category> categoryList = productCategoryMappingService.getCategoryByProductId(productId);
-        StringBuilder categoryNames = new StringBuilder();
 
-        for (int i = 0; i < categoryList.size(); i++) {
-            categoryNames.append(categoryList.get(i).getCategoryName());
-            if (i < categoryList.size() - 1) {
-                categoryNames.append(", ");
-            }
+        for(int i = 0; i < categoryList.size(); i++){
+            req.setAttribute(String.format("category_id%d", i + 1), categoryList.get(i).getCategoryId());
         }
-        req.setAttribute("categoryNames", categoryNames.toString());
 
         return "shop/product/product_edit_form";
     }

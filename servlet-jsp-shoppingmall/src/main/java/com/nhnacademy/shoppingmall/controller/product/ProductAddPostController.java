@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -36,7 +37,6 @@ public class ProductAddPostController implements BaseController {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
-        String categoryId = req.getParameter("category_id");
         String productId = req.getParameter("product_id");
         String productName = req.getParameter("product_name");
         BigDecimal productPrice = new BigDecimal(req.getParameter("product_price"));
@@ -47,12 +47,18 @@ public class ProductAddPostController implements BaseController {
         Product product = new Product(productId, productName, productPrice, productDescription, now, productImagePath);
         log.debug("Product : {}", product);
 
-        ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
-        log.debug("ProductCategoryMapping : {}", productCategoryMapping);
-
         try{
             productService.saveProduct(product);
-            productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
+
+            for(int i = 1; i <= 3; i ++){
+                String categoryId = req.getParameter(String.format("category_id%d", i));
+                if(!categoryId.equals("null")){
+                    ProductCategoryMapping productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
+                    log.debug("ProductCategoryMapping : {}", productCategoryMapping);
+                    productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
+                }
+            }
+
             req.setAttribute("productAddMessage", "제품 등록에 성공하였습니다.");
             return "shop/product/product_add_form";
         } catch (Exception e){

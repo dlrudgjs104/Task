@@ -19,6 +19,7 @@ public class CategoryListController implements BaseController {
     public String execute(HttpServletRequest req, HttpServletResponse resp) {
         List<Category> categoryList = categoryService.findAllCategory();
 
+        req.setAttribute("categoryList", categoryList);
         req.setAttribute("listKind", "category");
         return "shop/page/admin_page_form";
     }

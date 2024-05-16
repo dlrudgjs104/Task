@@ -12,13 +12,13 @@
         </div>
         <div class="col-md-9">
             <table class="table">
-                <tr>
-                    <th style="width: 150px;">제품 카테고리</th>
-                    <td>${categoryNames}</td>
-                </tr>
-                <tr>
+                <tr style="width: 150px;">
                     <th>제품 아이디</th>
                     <td>${product.productId}</td>
+                </tr>
+                <tr>
+                    <th>제품 카테고리</th>
+                    <td>${categoryNames}</td>
                 </tr>
                 <tr>
                     <th>제품 이름</th>

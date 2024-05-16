@@ -1,5 +1,6 @@
 package com.nhnacademy.shoppingmall.controller.product;
 
+import com.nhnacademy.shoppingmall.Category.domain.Category;
 import com.nhnacademy.shoppingmall.Category.repository.Impl.CategoryRepositoryImpl;
 import com.nhnacademy.shoppingmall.Category.service.CategoryService;
 import com.nhnacademy.shoppingmall.Category.service.Impl.CategoryServiceImpl;
@@ -24,6 +25,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @RequestMapping(method = RequestMapping.Method.POST,value = "/productEditAction.do")
@@ -44,15 +46,17 @@ public class ProductEditPostController implements BaseController {
         String productImagePathTemp;
         Product product;
         ProductCategoryMapping productCategoryMapping;
+        List<Category> categoryList;
+        int productCategoryMaxCount = (int) req.getServletContext().getAttribute("PRODUCT_CATEGORY_MAX_COUNT");
 
         try{
-            categoryId = req.getParameter("category_id");
             productId = req.getParameter("product_id");
             productName = req.getParameter("product_name");
             productPrice = new BigDecimal(req.getParameter("product_price"));
             productDescription = req.getParameter("product_description");
             productImagePath = req.getParameter("product_image_path");
             productImagePathTemp = fileUpload(req, resp);
+            categoryList = productCategoryMappingService.getCategoryByProductId(productId);
 
             if(productImagePathTemp != null) {
                 productImagePath = productImagePathTemp;
@@ -61,11 +65,26 @@ public class ProductEditPostController implements BaseController {
             product = new Product(productId, productName, productPrice, productDescription, null, productImagePath);
             log.debug("Product : {}", product);
 
-            productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
-            log.debug("ProductCategoryMapping : {}", productCategoryMapping);
-
             productService.updateProduct(product);
-            productCategoryMappingService.updateProductCategoryMapping(productCategoryMapping);
+
+            // 기존 제품카테고리매핑 전부 삭제
+            for(int i = 0; i < categoryList.size(); i++){
+                categoryId = req.getParameter(String.format("category_id%d", i + 1));
+                productCategoryMappingService.deleteProductCategoryMapping(productId, categoryList.get(i).getCategoryId());
+            }
+
+            // 수정된 제품카테고리매핑 추가
+            for(int i = 0; i < productCategoryMaxCount; i++){
+                categoryId = req.getParameter(String.format("category_id%d", i + 1));
+                req.setAttribute(String.format("category_id%d", i + 1), categoryId);
+
+                if(!categoryId.equals("null")){
+                    productCategoryMapping = new ProductCategoryMapping(productId, categoryId);
+                    log.debug("ProductCategoryMapping : {}", productCategoryMapping);
+                    productCategoryMappingService.saveProductCategoryMapping(productCategoryMapping);
+                }
+            }
+
             req.setAttribute("productEditMessage", "제품 정보 수정에 성공하였습니다.");
             return "shop/product/product_edit_form";
         } catch (Exception e){

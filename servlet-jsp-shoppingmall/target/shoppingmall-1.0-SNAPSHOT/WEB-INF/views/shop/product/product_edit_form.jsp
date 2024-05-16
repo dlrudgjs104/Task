@@ -22,21 +22,49 @@
         <div class="col-md-9">
             <table class="table">
                 <tr>
-                    <th style="width: 150px;">제품 카테고리</th>
-                    <td>
-                        <select name="category_id" class="form-select" id="category_id" required>
-                            <% List<Category> categoryList = (List<Category>) application.getAttribute("categoryList"); %>
-                            <% for (int i = 0; i < categoryList.size(); i++) { %>
-                            <option value="<%= categoryList.get(i).getCategoryId() %>">
-                                <%= categoryList.get(i).getCategoryName() %>
-                            </option>
-                            <% } %>
-                        </select>
-                    </td>
+                    <th style="width: 150px;">제품 아이디</th>
+                    <td><input type="text" name="product_id" class="form-control" id="product_id" value="${product.productId}" readonly></td>
                 </tr>
                 <tr>
-                    <th>제품 아이디</th>
-                    <td><input type="text" name="product_id" class="form-control" id="product_id" value="${product.productId}" readonly></td>
+                    <th>제품 카테고리</th>
+                    <td>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <select name="category_id1" class="form-select" id="category_id1" required>
+                                        <c:forEach var="category" items="${categoryList}">
+                                            <option value="${category.categoryId}" <c:if test="${category.categoryId == category_id1}">selected</c:if>>${category.categoryName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="category_id1">제품 카테고리1(필수)</label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <select name="category_id2" class="form-select" id="category_id2" required>
+                                        <option value=null>없음</option>
+                                        <c:forEach var="category" items="${categoryList}">
+                                            <option value="${category.categoryId}" <c:if test="${category.categoryId == category_id2}">selected</c:if>>${category.categoryName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="category_id2">제품 카테고리2(선택)</label>
+                                </div>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <select name="category_id3" class="form-select" id="category_id3" required>
+                                        <option value=null>없음</option>
+                                        <c:forEach var="category" items="${categoryList}">
+                                            <option value="${category.categoryId}" <c:if test="${category.categoryId == category_id3}">selected</c:if>>${category.categoryName}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <label for="category_id3">제품 카테고리3(선택)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <th>제품 이름</th>
