@@ -32,14 +32,5 @@ public class PriceService {
         return dataparser.price(city, sector);
     }
 
-    public String billTotal(String city, String sector, int usage){
-        List<Price> priceList = Price.parse(property.getPricePath());
-        int total = priceList.stream()
-                .filter(price -> price.getCity().equals(city) && price.getSector().equals(sector))
-                .findFirst()
-                .map(price -> price.getUnitPrice() * price.getUnitPrice() * usage)
-                .orElse(0); // 일치하는 가격이 없으면 0 반환
-
-        return outPutFormatter.format(price(city, sector), total);
-    }
+    public String billTotal(String city, String sector, int usage){return outPutFormatter.format(price(city, sector), dataparser.price(city, sector).getBillTotal(usage));}
 }

@@ -35,7 +35,7 @@ public class Account {
         List<Account> accounts = new LinkedList<>();
 
         try (InputStream inputStream = readFromCsv(filePath);
-             InputStreamReader csvData = new InputStreamReader(inputStream);
+             InputStreamReader csvData = new InputStreamReader(Objects.requireNonNull(inputStream));
              CSVParser csvParser = CSVParser.parse(csvData, CSVFormat.EXCEL)) {
 
             List<CSVRecord> csvRecordList = csvParser.getRecords();
@@ -62,7 +62,7 @@ public class Account {
         try {
             return new FileInputStream(filePath);
         } catch (FileNotFoundException e) {
-            log.info("error: {}", e.getMessage());
+            log.error("error: {}", e.getMessage());
             return null;
         }
     }

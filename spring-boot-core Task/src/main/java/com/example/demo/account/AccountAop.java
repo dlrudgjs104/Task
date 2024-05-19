@@ -12,14 +12,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class AccountAop {
 
-    @Pointcut("execution(* com.example.demo.account..login(..)) || execution(* com.example.demo.account..logout(..))")
+    @Pointcut("execution(* com.example.demo.service..login(..)) || execution(* com.example.demo.service..logout(..))")
     public void cut(){
 
     }
 
     @Before("cut()")
     public Object before(JoinPoint joinPoint){
-        log.info("{}({})", joinPoint.getSignature().getDeclaringTypeName(), joinPoint.getArgs());
+        log.info("{}({})", joinPoint.getSignature().getName(), joinPoint.getArgs());
         return joinPoint;
     }
 }

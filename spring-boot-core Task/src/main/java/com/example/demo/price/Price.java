@@ -24,7 +24,7 @@ import java.util.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Price {
     @JsonProperty("순번")
-    int id;
+    Long id;
     @JsonProperty("지자체명")
     String city;
     @JsonProperty("업종")
@@ -40,7 +40,7 @@ public class Price {
         List<Price> prices = new LinkedList<>();
 
         try (InputStream inputStream = readFromCsv(filePath);
-             InputStreamReader csvData = new InputStreamReader(inputStream);
+             InputStreamReader csvData = new InputStreamReader(Objects.requireNonNull(inputStream));
              CSVParser csvParser = CSVParser.parse(csvData, CSVFormat.EXCEL)) {
 
             List<CSVRecord> csvRecordList = csvParser.getRecords();
@@ -48,7 +48,7 @@ public class Price {
             for (int record_i = 1; record_i < csvRecordList.size(); record_i++) {
                 CSVRecord csvRecord = csvRecordList.get(record_i);
 
-                int id = Integer.parseInt(csvRecord.get(0).trim());
+                Long id = Long.parseLong(csvRecord.get(0).trim());
                 String city = csvRecord.get(1).trim();
                 String sector = csvRecord.get(2).trim();
                 int unitPrice = Integer.parseInt(csvRecord.get(6).trim());
@@ -58,7 +58,7 @@ public class Price {
             }
 
         } catch (Exception e) {
-            log.debug("error:{}", e.getMessage());
+            log.error("error:{}", e.getMessage());
         }
 
         return prices;
@@ -68,20 +68,25 @@ public class Price {
         try {
             return new FileInputStream(filePath);
         } catch (FileNotFoundException e) {
-            log.info("error:{}", e.getMessage());
+            log.error("error:{}", e.getMessage());
             return null;
         }
     }
 
     public static List<Price> readFromJson(String filePath) {
+        File JsonFile = new File(filePath);
         ObjectMapper objectMapper = new ObjectMapper();
 
         try {
-            return objectMapper.readValue(filePath, new TypeReference<>() {
+            return objectMapper.readValue(JsonFile, new TypeReference<>() {
             });
         } catch (IOException e) {
             throw new RuntimeException("File not found");
         }
+    }
+
+    public int getBillTotal(int usage){
+        return unitPrice * usage;
     }
 
     @Override
