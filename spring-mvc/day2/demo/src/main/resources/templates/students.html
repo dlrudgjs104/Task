@@ -1,0 +1,44 @@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<header>
+
+</header>
+<body>
+<table>
+    <tr>
+        <th th:text="#{studentID}"></th>
+        <th th:text="#{studentPW}"></th>
+        <th th:text="#{studentName}"></th>
+        <th th:text="#{studentEmail}"></th>
+        <th th:text="#{studentScore}"></th>
+        <th th:text="#{studentEvaluation}"></th>
+    </tr>
+    <tr th:each="student: ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.password}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.score}"></td>
+        <td th:text="${student.evaluation}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

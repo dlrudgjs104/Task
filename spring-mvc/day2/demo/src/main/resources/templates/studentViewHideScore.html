@@ -1,0 +1,39 @@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 점수와 평가항목을 제외한 정보</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td th:text="#{studentID}"></td>
+        <td><span th:text="${student.id}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentPW}">비밀번호:</td>
+        <td><span th:text="${student.password}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentName}"></td>
+        <td><span th:text="${student.name}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentEmail}"></td>
+        <td><span th:text="${student.email}"></span></td>
+    </tr>
+    <tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<style>
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>학생 조회</title>
+</head>
+<body>
+<table>
+    <tr>
+        <td th:text="#{studentID}"></td>
+        <td><span th:text="${student.id}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentPW}">비밀번호:</td>
+        <td><span th:text="${student.password}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentName}"></td>
+        <td><span th:text="${student.name}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentEmail}"></td>
+        <td><span th:text="${student.email}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentScore}"></td>
+        <td><span th:text="${student.score}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentEvaluation}"></td>
+        <td><span th:text="${student.evaluation}"></span></td>
+    </tr>
+</table>
+<br />
+<a th:href="@{/student/{studentId}/modify(studentId=${student.id})}">정보수정</a>
+</body>
+</html>
