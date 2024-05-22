@@ -14,10 +14,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>학생 조회</title>
+    <title th:text="#{studentViewTitle}"></title>
 </head>
 <body>
 <table>
+    <tr>
+        <th colspan="2" th:text="#{studentViewTitle}"></th>
+    </tr>
     <tr>
         <td th:text="#{studentID}"></td>
         <td><span th:text="${student.id}"></span></td>

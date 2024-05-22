@@ -14,13 +14,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Students</title>
+    <title th:text="#{studentsViewTitle}"></title>
 </head>
 <header>
 
 </header>
 <body>
 <table>
+    <tr>
+        <th colspan="6" th:text="#{studentsViewTitle}"></th>
+    </tr>
     <tr>
         <th th:text="#{studentID}"></th>
         <th th:text="#{studentPW}"></th>
