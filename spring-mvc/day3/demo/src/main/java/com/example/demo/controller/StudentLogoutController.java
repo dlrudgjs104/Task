@@ -19,7 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class StudentLogoutController {
 
     @GetMapping("/logout")
-    public String login(@CookieValue(value = "SESSION", required = false) String sessionId, HttpServletResponse response, HttpSession session) {
+    public String logout(@CookieValue(value = "SESSION", required = false) String sessionId, HttpServletResponse response, HttpSession session) {
         if (StringUtils.hasText(sessionId)) {
             Cookie cookie = new Cookie("SESSION", null);
             cookie.setMaxAge(0);
