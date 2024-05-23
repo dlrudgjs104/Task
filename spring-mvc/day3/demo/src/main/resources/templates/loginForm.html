@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{loginTitle}"></title>
+</head>
+<body>
+<form method="post" action="/login">
+    <table>
+        <tr>
+            <td colspan="2"><h2><span th:text="#{loginMessage}"></span></h2></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <span th:text="#{languageSelect}"></span>:
+                <a href="?locale=ko">한국어</a>
+                <a href="?locale=en">English</a>
+            </td>
+        </tr>
+        <tr style="height: 20px">
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td th:text="#{loginID}"></td>
+            <td><input type="text" name="id"/></td>
+        </tr>
+        <tr>
+            <td th:text="#{loginPW}"></td>
+            <td><input type="password" name="password"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;"><input type="submit" style="width: 100%" th:value="#{submitButton}"/></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;">
+                <a href="/student/register"><span th:text="#{studentRegister}"></span></a>
+                <a href="/students"><span th:text="#{studentList}"></span></a>
+            </td>
+        </tr>
+
+    </table>
+</form>
+</body>
+</html>

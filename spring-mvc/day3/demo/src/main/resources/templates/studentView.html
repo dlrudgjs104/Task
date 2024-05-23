@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{studentViewTitle}"></title>
+    <link rel="stylesheet" href="/tableStyle.css">
+</head>
+<body>
+<table>
+    <tr>
+        <th colspan="2" th:text="#{studentViewTitle}"></th>
+    </tr>
+    <tr>
+        <td th:text="#{studentID}"></td>
+        <td><span th:text="${student.id}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentPW}">비밀번호:</td>
+        <td><span th:text="${student.password}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentName}"></td>
+        <td><span th:text="${student.name}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentEmail}"></td>
+        <td><span th:text="${student.email}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentScore}"></td>
+        <td><span th:text="${student.score}"></span></td>
+    </tr>
+    <tr>
+        <td th:text="#{studentEvaluation}"></td>
+        <td><span th:text="${student.evaluation}"></span></td>
+    </tr>
+    <tr>
+        <td colspan="2" style="text-align:center;">
+        <a href="/student/modify" th:text="#{modifyButton}"></a>
+        <a href="/logout" th:text="#{logoutButton}"></a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

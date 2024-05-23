@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{registerTitle}"></title>
+    <link rel="stylesheet" href="/tableStyle.css">
+</head>
+<body>
+    <form method="post" action="/student/register">
+        <table>
+            <tr>
+                <th colspan="2" th:text="#{registerTitle}"></th>
+            </tr>
+            <tr>
+                <td th:text="#{studentID}"></td>
+                <td><input type="text" name="id" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{studentPW}"></td>
+                <td><input type="password" name="password" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{studentName}"></td>
+                <td><input type="text" name="name" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{studentEmail}"></td>
+                <td><input type="text" name="email" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{studentScore}"></td>
+                <td><input type="text" name="score" /></td>
+            </tr>
+            <tr>
+                <td th:text="#{studentEvaluation}"></td>
+                <td><textarea name="evaluation" rows="10" cols="80"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="submit" style="width: 100%" th:value="#{registerButton}"/></td>
+            </tr>
+        </table>
+</form>
+</body>
+</html>
