@@ -3,7 +3,6 @@ package com.nhnacademy.customerservice.validator;
 import com.nhnacademy.customerservice.domain.InquiryAddRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 @Component
@@ -19,11 +18,11 @@ public class InquiryAddRequestValidator implements Validator {
         String content = request.getContent();
 
         if (!(title.length() >= 2 && title.length() <= 200)) {
-            errors.rejectValue("title", "", "제목: 2~200자까지 가능");
+            errors.rejectValue("title", "INVALID_TITLE_LENGTH", "제목: 2~200자까지 가능");
         }
 
         if(!(content.length() >= 0 && content.length() <= 40000)) {
-            errors.rejectValue("content", "", "본문: 0~40,000자까지 가능");
+            errors.rejectValue("content", "INVALID_CONTENT_LENGTH", "본문: 0~40,000자까지 가능");
         }
     }
 }

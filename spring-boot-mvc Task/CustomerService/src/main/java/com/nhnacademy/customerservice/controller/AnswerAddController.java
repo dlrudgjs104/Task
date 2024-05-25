@@ -5,7 +5,7 @@ import com.nhnacademy.customerservice.domain.AnswerAddRequest;
 import com.nhnacademy.customerservice.exception.ValidationFailedException;
 import com.nhnacademy.customerservice.repository.InquiryRepository;
 import com.nhnacademy.customerservice.repository.UserRepository;
-import com.nhnacademy.customerservice.validator.InquiryAnswerRequestValidator;
+import com.nhnacademy.customerservice.validator.AnswerAddRequestValidator;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.*;
 public class AnswerAddController {
     private final UserRepository userRepository;
     private final InquiryRepository inquiryRepository;
-    private final InquiryAnswerRequestValidator validator;
+    private final AnswerAddRequestValidator validator;
 
 
-    public AnswerAddController(UserRepository userRepository, InquiryRepository inquiryRepository, InquiryAnswerRequestValidator validator) {
+    public AnswerAddController(UserRepository userRepository, InquiryRepository inquiryRepository, AnswerAddRequestValidator validator) {
         this.userRepository = userRepository;
         this.inquiryRepository = inquiryRepository;
         this.validator = validator;

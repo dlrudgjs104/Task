@@ -46,8 +46,8 @@ public class InquiryAddController {
 
     @PostMapping("/cs/inquiry")
     public String AddInquiryPost(@Validated @ModelAttribute InquiryAddRequest req,
-                                 @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                  BindingResult bindingResult,
+                                 @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                  HttpSession session) throws IOException {
         String userId = (String) session.getAttribute("userId");
 

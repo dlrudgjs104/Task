@@ -1,7 +1,5 @@
 package com.nhnacademy.customerservice.domain;
 
-
-import jakarta.validation.constraints.Size;
 import lombok.Value;
 
 @Value
