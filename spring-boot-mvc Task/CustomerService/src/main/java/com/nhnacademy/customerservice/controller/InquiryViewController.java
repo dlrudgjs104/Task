@@ -19,9 +19,10 @@ public class InquiryViewController {
         this.inquiryRepository = inquiryRepository;
     }
 
-
     @GetMapping("/cs")
-    public String userInquiryViewGet(@RequestParam(value = "categoryName", required = false) String categoryName, Model model, HttpSession session) {
+    public String userInquiryViewGet(@RequestParam(value = "categoryName", required = false) String categoryName,
+                                     Model model,
+                                     HttpSession session) {
         String userId = (String) session.getAttribute("userId");
         List<Inquiry> inquiries = Objects.isNull(categoryName) || categoryName.equals("all") ? inquiryRepository.getInquiriesByUser(userId) : inquiryRepository.getInquiriesByCategory(userId, categoryName);
 
@@ -31,16 +32,11 @@ public class InquiryViewController {
     }
 
     @GetMapping("/cs/admin")
-    public String adminInquiryViewGet(Model model, HttpSession session) {
-        String userId = (String) session.getAttribute("userId");
+    public String adminInquiryViewGet(Model model) {
         List<Inquiry> inquiries = inquiryRepository.getInquiriesByNotAnswer();
 
         model.addAttribute("inquiries", inquiries);
 
         return "adminPage";
     }
-
-
-
-
 }

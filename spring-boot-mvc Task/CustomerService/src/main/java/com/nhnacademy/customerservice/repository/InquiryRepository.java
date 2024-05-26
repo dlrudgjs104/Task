@@ -2,7 +2,6 @@ package com.nhnacademy.customerservice.repository;
 
 import com.nhnacademy.customerservice.domain.Inquiry;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface InquiryRepository {

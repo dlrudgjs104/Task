@@ -6,7 +6,6 @@ import com.nhnacademy.customerservice.exception.ValidationFailedException;
 import com.nhnacademy.customerservice.repository.InquiryRepository;
 import com.nhnacademy.customerservice.validator.InquiryAddRequestValidator;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -45,7 +44,7 @@ public class InquiryAddController {
     }
 
     @PostMapping("/cs/inquiry")
-    public String AddInquiryPost(@Validated @ModelAttribute InquiryAddRequest req,
+    public String AddInquiryPost(@Validated @ModelAttribute("inquiryAddRequest") InquiryAddRequest req,
                                  BindingResult bindingResult,
                                  @RequestParam(value = "files", required = false) List<MultipartFile> files,
                                  HttpSession session) throws IOException {
@@ -57,13 +56,16 @@ public class InquiryAddController {
 
         List<String> filePaths = new ArrayList<>();
         int fileNumber = 0;
-        for (MultipartFile file : files) {
-            if (!file.isEmpty() && isFileExtensionCheck(file.getOriginalFilename())) {
-                String newFileName = String.format("%s_%s%s", inquiryRepository.getInquiriesSize() + 1, ++fileNumber, Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf(".")));
-                file.transferTo(Paths.get(UPLOAD_DIR + newFileName));
-                filePaths.add(SAVE_DIR + newFileName);
+        if(files != null){
+            for (MultipartFile file : files) {
+                if (!file.isEmpty() && isFileExtensionCheck(file.getOriginalFilename())) {
+                    String newFileName = String.format("%s_%s%s", inquiryRepository.getInquiriesSize() + 1, ++fileNumber, Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf(".")));
+                    file.transferTo(Paths.get(UPLOAD_DIR + newFileName));
+                    filePaths.add(SAVE_DIR + newFileName);
+                }
             }
         }
+
 
         inquiryRepository.addInquiry(req.getCategory(), req.getTitle(), req.getContent(), userId, filePaths);
 

@@ -28,7 +28,8 @@ public class AnswerAddController {
     }
 
     @GetMapping("/cs/admin/answer")
-    public String addAnswerGet(@RequestParam("inquiryId") String inquiryId, Model model) {
+    public String addAnswerGet(@RequestParam("inquiryId") String inquiryId,
+                               Model model) {
         Inquiry inquiry = inquiryRepository.getInquiry(inquiryId);
         model.addAttribute("inquiry", inquiry);
 
