@@ -1,0 +1,8 @@
+2024-05-20 01:28:53,377 INFO [main] c.e.d.p.PriceAop [PriceAop.java:36] ----- 선도형 class com.example.demo.MyCommands.city([]) ----->
+2024-05-20 01:28:53,393 INFO [main] c.e.d.p.PriceAop [PriceAop.java:38] <----- 선도형 class com.example.demo.MyCommands.city([동두천시, 파주시, 광주시, 양주시, 단양군, 서산시, 논산시, 금산군, 정읍시, 나주시, 장흥군, 함평군, 완도군, 진도군, 청송군, 고령군, 예천군, 통영시, 사천시, 거제시, 고성군]) -----
+2024-05-20 01:29:04,538 INFO [main] c.e.d.p.PriceAop [PriceAop.java:36] ----- 선도형 class com.example.demo.MyCommands.sector([동두천시]) ----->
+2024-05-20 01:29:04,546 INFO [main] c.e.d.p.PriceAop [PriceAop.java:38] <----- 선도형 class com.example.demo.MyCommands.sector([가정용, 일반용, 일반용(미), 전용공업용, 발전용]) -----
+2024-05-20 01:29:07,246 INFO [main] c.e.d.p.PriceAop [PriceAop.java:36] ----- 선도형 class com.example.demo.MyCommands.city([]) ----->
+2024-05-20 01:29:07,253 INFO [main] c.e.d.p.PriceAop [PriceAop.java:38] <----- 선도형 class com.example.demo.MyCommands.city([동두천시, 파주시, 광주시, 양주시, 단양군, 서산시, 논산시, 금산군, 정읍시, 나주시, 장흥군, 함평군, 완도군, 진도군, 청송군, 고령군, 예천군, 통영시, 사천시, 거제시, 고성군]) -----
+2024-05-20 01:29:13,912 INFO [main] c.e.d.p.PriceAop [PriceAop.java:36] ----- 선도형 class com.example.demo.MyCommands.billTotal([동두천시, 가정용, 10]) ----->
+2024-05-20 01:29:13,919 INFO [main] c.e.d.p.PriceAop [PriceAop.java:38] <----- 선도형 class com.example.demo.MyCommands.billTotal(city: 동두천시, sector: 가정용, unit price(won): 690, bill total(won): 6900) -----
