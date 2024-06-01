@@ -1,0 +1,68 @@
+GET http://localhost:8080/me?page=1&size=10000
+
+
+###
+GET http://localhost:8080/me
+Accept:Application/xml
+
+###
+GET http://localhost:8080/me?fomrmat=xml
+
+### 멤버 추가 실행
+# @no-redirect
+POST http://localhost:8080/members
+Content-Type: application/json
+
+{
+  "id": "admin",
+  "password": "1",
+  "name" : "ADMIN",
+  "age" : 30,
+  "role": "ADMIN"
+}
+
+### 멤버 추가 실행
+POST http://localhost:8080/members
+Content-Type: application/json
+
+{
+  "id": "qwer",
+  "password": "1",
+  "name" : "QWER",
+  "age" : 42,
+  "role": "MEMBER"
+}
+
+### 멤버 추가 실행
+# @no-redirect
+POST http://localhost:8080/members
+Content-Type: application/json
+
+{
+"id": "google",
+"password": "1",
+"name" : "Google",
+"age" : 23,
+"role": "GOOGLE"
+}
+
+### 전체 멤버 반환 실행
+GET http://localhost:8080/members
+
+### 특정 멤버 반환 실행
+GET http://localhost:8080/members/qwer
+
+### 멤버 삭제 실행
+DELETE http://localhost:8080/members/qwer
+
+### 멤버 업데이트 실행
+PUT http://localhost:8080/members
+Content-Type: application/json
+
+{
+  "id": "qwer",
+  "password": "1",
+  "name" : "QWER",
+  "age" : 20,
+  "role": "MEMBER"
+}

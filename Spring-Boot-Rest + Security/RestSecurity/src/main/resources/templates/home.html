@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home and Login Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .links {
+            text-align: left;
+            margin-top: 20px;
+        }
+        .links a {
+            display: block;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<h1>Login Successful</h1>
+<p>You have successfully logged in.</p>
+<form action="/auth/logout" method="get">
+    <button type="submit">Logout</button>
+</form>
+
+<div class="links">
+    <a href="/admin/page">Admin Page</a><br />
+    <a href="/member/page">Member Page</a><br />
+    <a href="/google/page">Google Page</a><br />
+</div>
+</body>
+</html>
