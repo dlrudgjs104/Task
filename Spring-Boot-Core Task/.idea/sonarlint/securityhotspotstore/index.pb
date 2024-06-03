@@ -1,5 +1,5 @@
 
 9
 	README.md,8/e/8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-;
-README.adoc,2/f/2fcabbd3c29fc94d3f6f7f15eb70637d73b2e93f
+C
+1주차 과제.adoc,b/4/b4802e6b6e5308c8d378a639b180c80506273ce8
