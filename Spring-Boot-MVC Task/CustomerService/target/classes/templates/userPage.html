@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>내 문의 목록</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<h1>내 문의 목록</h1>
+<div class="category-container bg-secondary">
+    <ul class="nav d-flex justify-content-around"> <!-- 각 항목을 가로 방향으로 일정한 간격으로 배치 -->
+        <li class="nav-item"><a href="/cs?categoryName=all" class="nav-link px-2 text-white">전체</a> </li>
+        <li class="nav-item"><a href="/cs?categoryName=불만 접수" class="nav-link px-2 text-white">불만 접수</a> </li>
+        <li class="nav-item"><a href="/cs?categoryName=제안" class="nav-link px-2 text-white">제안</a> </li>
+        <li class="nav-item"><a href="/cs?categoryName=환불/교환" class="nav-link px-2 text-white">환불/교환</a> </li>
+        <li class="nav-item"><a href="/cs?categoryName=칭찬해요" class="nav-link px-2 text-white">칭찬해요</a> </li>
+        <li class="nav-item"><a href="/cs?categoryName=기타 문의" class="nav-link px-2 text-white">기타 문의</a> </li>
+    </ul>
+</div>
+<button onclick="location.href='/cs/inquiry'">문의하기</button>
+<button onclick="location.href='/cs/logout'">로그아웃</button>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>분류</th>
+        <th>제목</th>
+        <th>작성일시</th>
+        <th style="text-align: center">답변여부</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="inquiry: ${inquiries}">
+        <td th:text="${inquiry.id}"></td>
+        <td th:text="${inquiry.category}"></td>
+        <td><a th:href="@{/cs/inquiry(id=${inquiry.id})}" th:text="${inquiry.title}"></a></td>
+        <td th:text="${inquiry.createdAt}"></td>
+        <td th:text="${inquiry.answerCheck} ? 'O' : 'X'" style="text-align: center"></td>
+
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
