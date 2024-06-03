@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c2b8394d-8602-47e6-9562-46a7094d4f05" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/f/2fcabbd3c29fc94d3f6f7f15eb70637d73b2e93f" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spring Shell.adoc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/2/f/2fcabbd3c29fc94d3f6f7f15eb70637d73b2e93f" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/1주차 과제.adoc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +66,7 @@
     "Spring Boot.DemoApplication.executor": "Run",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/dlrudgjs/Desktop/GitHub/Task/Spring-Boot-Core Task/image",
+    "last_opened_file_path": "/Users/dlrudgjs/Desktop/GitHub/Task/Spring-Boot-Core Task",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,6 +84,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/image" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/example/demo/reference" />
@@ -177,7 +176,7 @@
       <workItem from="1716515574780" duration="106000" />
       <workItem from="1716682834743" duration="4000" />
       <workItem from="1717372719532" duration="861000" />
-      <workItem from="1717383720424" duration="472000" />
+      <workItem from="1717383720424" duration="1317000" />
     </task>
     <servers />
   </component>
