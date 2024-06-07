@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>전체 문의 목록</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>전체 문의 목록</h1>
+<button onclick="location.href='/cs/logout'">로그아웃</button>
+<table>
+    <thead>
+    <tr>
+        <th>번호</th>
+        <th>분류</th>
+        <th>제목</th>
+        <th>작성일시</th>
+        <th></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="inquiry: ${inquiries}">
+        <td th:text="${inquiry.id}"></td>
+        <td th:text="${inquiry.category}"></td>
+        <td th:text="${inquiry.title}"></td>
+        <td th:text="${inquiry.createdAt}"></td>
+        <td>
+            <form method="get" action="/cs/admin/answer">
+                <input type="hidden" name="inquiryId" th:value="${inquiry.id}">
+                <input type="submit" value="답변하기">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
