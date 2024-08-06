@@ -1,0 +1,6 @@
+POST /v1/hotel-api/hotels/1/rooms/1/reservations
+Content-Type:
+
+{
+
+}
